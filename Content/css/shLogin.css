@@ -1,0 +1,9 @@
+.label-data-error {
+    margin-left: 15px;
+    font-size: 12px;
+    color: red;
+  }
+
+  .btn-disabled {
+    cursor: not-allowed;
+  }
