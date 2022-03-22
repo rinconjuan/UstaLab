@@ -1,4 +1,4 @@
-﻿
+﻿@model UstaLab.Models.DatosLogin
 @{
     Layout = null;
 }
@@ -45,39 +45,44 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Bienvenidos</h1>
+                                        <h1 class="h4 text-gray-900">Bienvenidos</h1>
                                     </div>
-                                    <form class="user">
-                                        <div class="form-group">
-                                            <input type="email" class="form-control form-control-user"
-                                                   id="emailInput" aria-describedby="emailHelp"
-                                                   placeholder="Ingrese correo institucional...">
-                                            <span class="label-data-error" style="display: none;" id="dominioCorreo">Ingrese un correo valido</span>
-                                            <span class="label-data-error" style="display: none;" id="emptyCorreo">El correo es obligatorio</span>
+                                    <span class="label-error text-center" id="errorLogin" style="display: none"></span>
+                                    @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { @class = "noo-ajax-login-form form-horizontal", role = "form", @id = "formLogin" }))
+                                    {
+                                        <form class="user">
+                                            <div class="form-group">
+                                                @Html.TextBoxFor(m=> m.email, new {@class = "form-control form-control-user", @placeholder= "Ingrese correo institucional...", @id= "emailInput"})
+                                                
+                                                <span class="label-data-error" style="display: none;" id="dominioCorreo">Ingrese un correo valido</span>
+                                                <span class="label-data-error" style="display: none;" id="emptyCorreo">El correo es obligatorio</span>
 
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="password" class="form-control form-control-user"
-                                                   id="contraseniaInput" placeholder="Contraseña">
-                                            <span class="label-data-error" style="display: none;" id="emptyContrasenia">La contraseña es obligatoria</span>
-                                            <span class="label-data-error" style="display: none;" id="errorContrasenia">Contraseña Incorrecta</span>
-
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">
-                                                    Recordar datos
-                                                </label>
                                             </div>
-                                        </div>
-                                        <a class="btn btn-primary btn-user btn-block" onclick="validarDatos()">
-                                            Ingresar
-                                        </a>
-                                        <a class="btn btn-secondary btn-user btn-block">
-                                            Agendar espacio
-                                        </a>
-                                    </form>
+                                            <div class="form-group">
+                                                @Html.PasswordFor(m => m.password, new { @class = "form-control form-control-user", @placeholder = "Contraseña", @id = "contraseniaInput" })
+
+                                                
+                                                <span class="label-data-error" style="display: none;" id="emptyContrasenia">La contraseña es obligatoria</span>
+                                                <span class="label-data-error" style="display: none;" id="errorContrasenia">Contraseña Incorrecta</span>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="custom-control custom-checkbox small">
+                                                    <input type="checkbox" class="custom-control-input" id="customCheck">
+                                                    <label class="custom-control-label" for="customCheck">
+                                                        Recordar datos
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <a class="btn btn-primary btn-user btn-block" onclick="validarDatos()">
+                                                Ingresar
+                                            </a>
+                                            <a class="btn btn-secondary btn-user btn-block">
+                                                Agendar espacio
+                                            </a>
+                                        </form>
+                                        }
+                                    
                                     <hr>
                                     <div class="text-center">
                                         <a class="small" href="forgot-password.html">¿Olvido su contraseña?</a>
@@ -104,6 +109,8 @@
     <!-- Custom scripts for all pages-->
     <script src="~/Content/js/sb-admin-2.min.js"></script>
     <script src="~/Content/js/utils.js"></script>
+    <script src="~/Content/js/jsLogin.js"></script>
+
 
 </body>
 

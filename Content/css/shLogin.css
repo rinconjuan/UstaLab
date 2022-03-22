@@ -7,3 +7,13 @@
   .btn-disabled {
     cursor: not-allowed;
   }
+
+  .label-error{
+      border-radius: 10px;
+      background-color: rgb(255, 85, 85);
+      display: block;
+      color: white;
+      margin-top: 2px;
+      margin-bottom: 15px;
+
+  }

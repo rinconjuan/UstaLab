@@ -1,31 +1,179 @@
-﻿@{
+﻿@model UstaLab.Models.RespuestaUsuarios
+@{
     ViewBag.Title = "Home Page";
+    var nameUser = Model.Nombres + " " + Model.Apellidos;
+
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Laboratorio</h1>
+
+    </div>
+
+    <!-- Content Row -->
+    <div class="container-fluid">
+        <div class="row">
+
+            <!-- Area Chart -->
+            <div class="col-xl-8 col-lg-7">
+                <div class="card shadow mb-4">
+                    <!-- Card Header - Dropdown -->
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Transmisión en vivo</h6>
+                    </div>
+                    <!-- Card Body -->
+                    <div class="card-body text-center">
+                        <img src="./img/imgLive.jpg" class="img-fluid" alt="Responsive image">
+                    </div>
+                </div>
+            </div>
+            <!-- Pie Chart -->
+            <div class="col-xl-4 col-lg-5">
+                <div class="card shadow mb-4">
+                    <!-- Card Header - Dropdown -->
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Pruebas a realizar</h6>
+                    </div>
+                    <!-- Card Body -->
+                    <div class="card-body text-center" style="padding: 3% 15%;">
+                        <button id="btnPRotor" class="btn btn-success btn-icon-split" style="width: 100%;margin-bottom: 5px;" data-toggle="modal" data-target="#RotorModal">
+                            <span class="icon text-white">
+                                <i class="fa-solid fa-bolt"></i>
+                            </span>
+                            <span class="text" style="width: 100%;">Prueba de rotor bloqueado</span>
+                        </button>
+                        <button href="#" id="btnPVacio" class="btn btn-success btn-icon-split" style="width: 100%;" data-toggle="modal" data-target="#PruebaVacioModal">
+                            <span class="icon text-white">
+                                <i class="fa-solid fa-bolt"></i>
+                            </span>
+                            <span class="text" style="width: 100%;">Prueba de vacio</span>
+                        </button>
+                    </div>
+                    <div class="card-body" style="padding: 2px 15px 2px 15px; display: none;" id="divControlG">
+                        <div class="form-group" id="divControlVariac">
+                            <hr style="margin-top: 0px;">
+                            <h6 class="text-center"><b>Controles del variador de frecuencia</b></h6>
+                            <label for="formControlRange"><i class="fa-solid fa-gear"></i> Frecuencia</label>
+                            <input type="range" min="10" max="100" step="10" class="form-control-range" id="formControlRange">
+                            <small style="float: left;">1.00 hz</small>
+                            <small style="float: right;">400.00 hz</small>
+                            <br>
+                            <div class="text-center">
+                                <button href="#" class="btn btn-danger btn-icon-split mr-5">
+                                    <span class="icon text-white">
+                                        <i class="fa-solid fa-stop"></i>
+                                    </span>
+                                    <span class="text">Parar</span>
+                                </button>
+                                <button href="#" class="btn btn-success btn-icon-split">
+                                    <span class="icon text-white">
+                                        <i class="fa-solid fa-play"></i>
+                                    </span>
+                                    <span class="text">Iniciar</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div id="divBlockRotor" style="display: none;">
+                            <hr style="margin-top: 0px;">
+                            <h6 class="text-center"><b>Controles de rotor</b></h6>
+                            <div class="text-center">
+                                <button href="#" class="btn btn-danger btn-icon-split mr-5">
+                                    <span class="icon text-white">
+                                        <i class="fa-solid fa-stop"></i>
+                                    </span>
+                                    <span class="text">Parar</span>
+                                </button>
+                                <button href="#" class="btn btn-success btn-icon-split">
+                                    <span class="icon text-white">
+                                        <i class="fa-solid fa-play"></i>
+                                    </span>
+                                    <span class="text">Iniciar</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div id="divCircutor" class="text-center" style="display: none;">
+                            <hr>
+                            <h6 class="text-center"><b>Datos del circutor</b></h6>
+                            <img src="./img/imgCircu.jpg" class="img-fluid" alt="Responsive image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+<div class="modal" id="logoutModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cerrar Sesion</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Si desea cerrar sesion haga click en confirmar</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                <a class="btn btn-primary" href="login.html">Confirmar</a>
+            </div>
+        </div>
     </div>
 </div>
+
+<!-- Modal Prueba de Vacio-->
+<div class="modal" id="PruebaVacioModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Prueba de Vacio</h5>
+                <button id="closeModalPVacio" class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                La prueba de vacio en los motores de induccion se desarrolla para determinar las perdidas rotacionales del motor, ademas, de brindar información sobre su corriente
+                de magnetización. Si deseas mas informacion sobre esta prueba dar click en "Mas Informacion", si deseas continuar con el desarrollo de la prueba dar click en "Iniciar Prueba"
+            </div>
+            <div class="modal-footer">
+                <button id="cancelPVacio" class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                <button id="morePVacio" class="btn btn-primary" href="login.html">Mas informacion</button>
+                <button id="iniciarPvacio" class="btn btn-success" href="login.html">Iniciar prueba</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Prueba de Vacio-->
+<div class="modal" id="RotorModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Prueba de rotor bloqueado</h5>
+                <button id="closeModalPRotor" class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">La prueba de rotor bloqueado consiste en bloquear el rotor del motor para que no se mueva, para posteriormente medir el voltaje, la corriente y la potencia. Si deseas mas informacion sobre esta prueba dar click en "Mas Informacion", si deseas continuar con el desarrollo de la prueba dar click en "Iniciar Prueba"</div>
+            <div class="modal-footer">
+                <button id="cancelPRotor" class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                <button id="morePRotor" class="btn btn-primary" href="login.html">Mas informacion</button>
+                <button id="iniciarPRotor" class="btn btn-success" href="login.html">Iniciar prueba</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Content/plugins/vendor/jquery/jquery.js"></script>
+<script src="~/Content/js/jsIndex.js"></script>
+<script src="~/Content/js/utils.js"></script>
+<script>
+    var model = @Html.Raw(Json.Encode(Model));
+    console.log("userName", model);
+    $("#nameUser").text(model.Nombres + " " + model.Apellidos);
+</script>
