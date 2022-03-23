@@ -21,10 +21,7 @@ namespace UstaLab
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      "~/Content/js/jsIndex.js",
-                      "~/Content/js/jsLogin.js",
                       "~/Content/js/sb-admin-2.js",
-                      "~/Content/js/utils.js",
                       "~/Content/plugins/vendor/jquery/jquery.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
@@ -32,6 +29,7 @@ namespace UstaLab
                       "~/Content/site.css",
                       "~/Content/plugins/vendor/fontawesome-free-6.0.0-web/css/all.min.css",                      
                       "~/Content/css/sb-admin-2.min.css",
+                      "~/Content/css/sb-admin-2.css",
                       "~/Content/plugins/vendor/footable-bootstrap.latest/css/footable.bootstrap.css",
                       "~/Content/css/shLogin.css"));
         }

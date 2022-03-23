@@ -24,7 +24,7 @@ namespace UstaLab.Controllers
         public async Task<ActionResult> Login()
         {
             MensajeErrorItem mensajeError = new MensajeErrorItem();
-            RespuestaLogin respuestaLogin = new RespuestaLogin();
+            RespuestaUsuarios respuestaLogin = new RespuestaUsuarios();
             DatosLogin datosLogin = new DatosLogin();
             try
             {
@@ -39,16 +39,15 @@ namespace UstaLab.Controllers
                 using (HttpClient client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(ApiWeb);
-                    var respuestaApi = await client.GetAsync("GetAutenticacion" + parametros).ConfigureAwait(false);
+                    var respuestaApi = await client.GetAsync("GetUsuario" + parametros).ConfigureAwait(false);
                     var respuestaBody = await respuestaApi.Content.ReadAsStringAsync();
-                    respuestaLogin = JsonConvert.DeserializeObject<RespuestaLogin>(respuestaBody);
-                    if (respuestaLogin.statusLogin)
+                    respuestaLogin = JsonConvert.DeserializeObject<RespuestaUsuarios>(respuestaBody);
+                    if (respuestaLogin.EstadoLogin)
                     {                        
                         return Json(new { respuestaLogin = respuestaLogin, success = true });
                     }
                     else
-                    {
-                        
+                    {                        
                         mensajeError.MensajeError = "El usuario no existe o se ha digitado mal la contraseña";
                         mensajeError.CodigoError = "APIR00";
                         return Json(new { respuestaLogin = mensajeError, success = false });

@@ -1,7 +1,7 @@
 ﻿@model UstaLab.Models.RespuestaUsuarios
 @{
     ViewBag.Title = "Home Page";
-    var nameUser = Model.Nombres + " " + Model.Apellidos;
+    var nameUser = Model.Usuario.Nombres + " " + Model.Usuario.Nombres;
 
 }
 
@@ -18,7 +18,7 @@
         <div class="row">
 
             <!-- Area Chart -->
-            <div class="col-xl-8 col-lg-7">
+            <div class="col-xl-6 col-lg-5">
                 <div class="card shadow mb-4">
                     <!-- Card Header - Dropdown -->
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -26,12 +26,12 @@
                     </div>
                     <!-- Card Body -->
                     <div class="card-body text-center">
-                        <img src="./img/imgLive.jpg" class="img-fluid" alt="Responsive image">
+                        <img src="~/Content/img/imgLive.jpg" class="img-fluid" alt="Responsive image">
                     </div>
                 </div>
             </div>
             <!-- Pie Chart -->
-            <div class="col-xl-4 col-lg-5">
+            <div class="col-xl-6 col-lg-7">
                 <div class="card shadow mb-4">
                     <!-- Card Header - Dropdown -->
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -97,7 +97,21 @@
                         <div id="divCircutor" class="text-center" style="display: none;">
                             <hr>
                             <h6 class="text-center"><b>Datos del circutor</b></h6>
-                            <img src="./img/imgCircu.jpg" class="img-fluid" alt="Responsive image">
+                            <img src="" id="imgCircutor" class="img-fluid" alt="Responsive image">
+                            <div class="control">
+                                <button id="btnBack" class="btn btn-primary btn-icon-split" style="font-size: 90%" onclick="PostAccion(this)" data-funcion="5">Atras</button>
+                                <button id="btnF1" class="btn btn-primary btn-icon-split" style="font-size: 90%" onclick="PostAccion(this)" data-funcion="1">F1</button>
+                                <button id="btnF2" class="btn btn-primary btn-icon-split" style="font-size: 90%" onclick="PostAccion(this)" data-funcion="2">F2</button>
+                                <button id="btnF3" class="btn btn-primary btn-icon-split" style="font-size: 90%" onclick="PostAccion(this)" data-funcion="3">F3</button>
+                                <button id="btnF4" class="btn btn-primary btn-icon-split" style="font-size: 90%" onclick="PostAccion(this)" data-funcion="4">F4</button>
+                                <button id="btnENTER" class="btn btn-primary btn-icon-split" style="font-size: 90%" onclick="PostAccion(this)" data-funcion="0">ENTER</button>
+                            </div>
+                            
+
+
+
+
+
                         </div>
                     </div>
                 </div>
@@ -175,5 +189,5 @@
 <script>
     var model = @Html.Raw(Json.Encode(Model));
     console.log("userName", model);
-    $("#nameUser").text(model.Nombres + " " + model.Apellidos);
+    $("#nameUser").text(model.Usuario.Nombres + " " + model.Usuario.Apellidos);
 </script>

@@ -19,33 +19,32 @@ namespace UstaLab.Controllers
         {
             RespuestaUsuarios respuestaUsuarios = new RespuestaUsuarios();
             MensajeErrorItem mensajeError = new MensajeErrorItem();
-            var parametros = $"?email={dataUser.email}&contrasenia={dataUser.password}";
-            using (HttpClient client = new HttpClient())
+            var parametros = $"?email={dataUser.email}&password={dataUser.password}";
+            try
             {
-                client.BaseAddress = new Uri(ApiWeb);
-                var respuestaApi = await client.GetAsync("GetUsuario" + parametros).ConfigureAwait(false);
-                var respuestaBody = await respuestaApi.Content.ReadAsStringAsync();
-                if (respuestaApi.IsSuccessStatusCode)
+                using (HttpClient client = new HttpClient())
                 {
-                    respuestaUsuarios = JsonConvert.DeserializeObject<RespuestaUsuarios>(respuestaBody);
-                    return View(respuestaUsuarios);
-
-                }
-                else
-                {
-                    if (respuestaBody.Contains("codigoError") || respuestaBody.Contains("mensajeError"))
+                    client.BaseAddress = new Uri(ApiWeb);
+                    var respuestaApi = await client.GetAsync("GetUsuario" + parametros).ConfigureAwait(false);
+                    var respuestaBody = await respuestaApi.Content.ReadAsStringAsync();
+                    if (respuestaApi.IsSuccessStatusCode)
                     {
-                        mensajeError = JsonConvert.DeserializeObject<MensajeErrorItem>(respuestaBody);
-                        return Json(new { respuestaLogin = mensajeError, success = false });
+                        respuestaUsuarios = JsonConvert.DeserializeObject<RespuestaUsuarios>(respuestaBody);
+                        return View(respuestaUsuarios);
                     }
                     else
                     {
-                        mensajeError.MensajeError = "Error desconocido, contacte al administrador";
-                        mensajeError.CodigoError = "APIR00";
-                        return Json(new { respuestaLogin = mensajeError, success = false });
+                        throw new Exception();
                     }
                 }
             }
+            catch(Exception ex)
+            {
+                mensajeError.MensajeError = "Error al obtener datos del usuario" + ex.Message;
+                mensajeError.CodigoError = "APIR00";
+                return Json(new { respuestaLogin = mensajeError, success = false });
+            }
+            
         }
 
         public ActionResult About()

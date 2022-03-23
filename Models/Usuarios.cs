@@ -10,9 +10,14 @@ using System.Runtime.Serialization;
 
 namespace UstaLab.Models
 {
-    public class RespuestaLogin
+    public class Usuarios
     {
+        [Key]
         public int idUser { get; set; }
-        public bool statusLogin { get; set; }
+        public string Nombres { get; set; }
+        public string Apellidos { get; set; }
+        public string Email { get; set; }
+        public string Contrasenia {get; set;}
+
     }
 }

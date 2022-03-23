@@ -8,13 +8,17 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
-
 namespace UstaLab.Models
 {
-    public class RespuestaUsuarios
+    public class Imagenes
     {
-        public bool EstadoLogin { get; set; }
-        public Usuarios Usuario { get; set; }
+        [Key]
+        public int idImagen { get; set; }
+        public string DataImagen { get; set; }
+
+        public string NameImagen {get; set; }
+        public string MimeType { get; set; }
+
 
     }
 }
