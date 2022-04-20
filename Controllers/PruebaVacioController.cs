@@ -13,11 +13,7 @@ namespace UstaLab.Controllers
     {
         private string ApiWeb = "https://connectionapi20220316143145.azurewebsites.net";
         // GET: PruebaVacio
-        public ActionResult Index()
-        {
-            return View();
-        }
-
+        
         [HttpPost]
         public async Task<ActionResult> GetImagen()
         {

@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace UstaLab.Models
-{
+{   
     public class DatosLogin
     {
         public string email { get; set; }

@@ -1,10 +1,12 @@
-﻿function PostLogin(email, contrasenia) {
+﻿function PostLogin(email, contrasenia, validation) {
     let emailActual = email;
     let contraseniaActual = contrasenia;
     let url = "Login/Login";
     let data = new FormData();
+    console.log("validation", validation);
     let objDatosLogin = mapDatosLogin(emailActual, contraseniaActual);
     data.append("data", JSON.stringify(objDatosLogin));
+    data.append("__RequestVerificationToken", JSON.stringify(validation))
     
     $.ajax({
         url: url,

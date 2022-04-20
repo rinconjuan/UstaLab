@@ -8,8 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using UstaLab.Models;
 namespace UstaLab.Controllers
-{
-    
+{    
     public class HomeController : Controller
     {
         private string ApiWeb = "https://connectionapi20220316143145.azurewebsites.net";

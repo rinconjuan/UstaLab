@@ -50,6 +50,7 @@
                                     <span class="label-error text-center" id="errorLogin" style="display: none"></span>
                                     @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { @class = "noo-ajax-login-form form-horizontal", role = "form", @id = "formLogin" }))
                                     {
+                                        @Html.AntiForgeryToken()
                                         <form class="user">
                                             <div class="form-group">
                                                 @Html.TextBoxFor(m=> m.email, new {@class = "form-control form-control-user", @placeholder= "Ingrese correo institucional...", @id= "emailInput"})

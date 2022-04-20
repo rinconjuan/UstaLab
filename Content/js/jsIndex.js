@@ -1,5 +1,7 @@
 var BoolPVacio = false;
+setInterval(GetImage, 1000);
 $("#iniciarPvacio").click(function () {
+    BoolPVacio = true;
     GetImage();
     $("#closeModalPVacio").click();
     $("#divBlockRotor").hide();
@@ -16,6 +18,9 @@ $("#iniciarPvacio").click(function () {
 
 
 $("#iniciarPRotor").click(function () {
+    BoolPVacio = true;
+    GetImage();
+
     $("#divCircutor").show();
     $("#divControlG").show();  
     $("#divBlockRotor").show();  
@@ -33,17 +38,19 @@ $("#iniciarPRotor").click(function () {
 });
 
 function GetImage() {
-    let url = "PruebaVacio/GetImagen";
-    $.ajax({
-        url: url,
-        type: "POST",
-        processData: false,
-        contentType: false,
-        success: function (response) {
-            $("#imgCircutor").attr('src', 'data:image/bmp;base64,' + response.imagen);
-            BoolPVacio = true;
-        }
-    });
+    if (BoolPVacio == true) {
+        let url = "PruebaVacio/GetImagen";
+        $.ajax({
+            url: url,
+            type: "POST",
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                $("#imgCircutor").attr('src', 'data:image/bmp;base64,' + response.imagen);
+                console.log("Get imagen OK");
+            }
+        });
+    }    
 }
 
 function PostAccion(e) {
@@ -62,6 +69,20 @@ function PostAccion(e) {
         }
     });
 }
-setInterval(GetImage, 1000);
+
+function EndPVacio() {
+    BoolPVacio = false;
+    $("#divBlockRotor").show();
+    $("#divLoading").hide();
+    $("#divControlG").hide();
+    $("#divCircutor").hide();
+    $("#btnPVacio").prop("disabled", "false");
+    $("#btnPVacio").removeClass("btn-disabled");
+    $("#btnPRotor").removeAttr("disabled");
+    $("#btnPVacio").removeAttr("disabled");
+    $("#btnPRotor").removeClass("btn-disabled");
+    $("#divControlVariac").hide();
+}
+
 
 

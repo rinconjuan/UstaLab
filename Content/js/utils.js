@@ -11,8 +11,8 @@ function hideMessage(){
 
 
 }
-
-function validarDatos(){
+var validateKey = $("[name='__RequestVerificationToken']");
+function validarDatos(e){
     hideMessage();
     let emailActual = $("#emailInput").val();
     let contraseniaActual = $("#contraseniaInput").val();
@@ -34,10 +34,9 @@ function validarDatos(){
         flagLogin = false;
     }
     
-    if(flagLogin){
-        //Llamado a controlador para la validacion de la contraseña y usuario
-        PostLogin(emailActual, contraseniaActual);
+    if (flagLogin) {
+       //Llamado a controlador para la validacion de la contraseña y usuario
+        PostLogin(emailActual, contraseniaActual, validateKey);
     }
 
 }
-
