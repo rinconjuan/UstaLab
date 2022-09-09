@@ -79,20 +79,16 @@
                         <div id="divBlockRotor" style="display: none;">
                             <hr style="margin-top: 0px;">
                             <h6 class="text-center"><b>Controles de rotor</b></h6>
-                            <div class="text-center">
-                                <button href="#" class="btn btn-danger btn-icon-split mr-5">
-                                    <span class="icon text-white">
-                                        <i class="fa-solid fa-stop"></i>
-                                    </span>
-                                    <span class="text">Parar</span>
-                                </button>
-                                <button href="#" class="btn btn-success btn-icon-split">
+                            <div class="text-center">                              
+                                <button id="btnPararRotor" href="#" class="btn btn-success btn-icon-split" onclick="PararRotor()">
                                     <span class="icon text-white">
                                         <i class="fa-solid fa-play"></i>
                                     </span>
-                                    <span class="text">Iniciar</span>
+                                    <span class="text">Parar Rotor</span>
                                 </button>
                             </div>
+                            <p class="alert alert-warning" style="margin-top:15px">El rotor sera bloqueado por 12 segundos, tiempo restante:
+                            <span id="seconds"></span> <span id="seconds"></span> </p>
                         </div>
                         <div id="divCircutor" class="text-center" style="display: none;">
                             <hr>

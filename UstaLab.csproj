@@ -120,6 +120,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\FuenteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PruebaVacioController.cs" />
@@ -129,6 +130,7 @@
     <Compile Include="Models\DatosLogin.cs" />
     <Compile Include="Models\Imagenes.cs" />
     <Compile Include="Models\MensajeErrorItem.cs" />
+    <Compile Include="Models\RespuestaFuente.cs" />
     <Compile Include="Models\RespuestaUsuarios.cs" />
     <Compile Include="Models\Usuarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -2292,6 +2294,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Fuente\" />
     <Folder Include="Views\PruebaVacio\" />
   </ItemGroup>
   <ItemGroup>

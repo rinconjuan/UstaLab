@@ -14,7 +14,7 @@ namespace UstaLab.Controllers
 {
     public class LoginController : Controller
     {
-        private string ApiWeb = "https://connectionapi20220316143145.azurewebsites.net";
+        private string ApiWeb = "http://damian1628-001-site1.btempurl.com";
         // GET: Login
         public ActionResult Index()
         {

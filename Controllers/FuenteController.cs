@@ -7,29 +7,39 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using UstaLab.Models;
+
 namespace UstaLab.Controllers
-{    
-    public class HomeController : Controller
+{
+    public class FuenteController : Controller
     {
         private string ApiWeb = "http://damian1628-001-site1.btempurl.com/";
-
         [HttpPost]
-        public async Task<ActionResult> Index(DatosLogin dataUser)
+        public async Task<ActionResult> PararRotor( )
         {
-            RespuestaUsuarios respuestaUsuarios = new RespuestaUsuarios();
+
+            RespuestaFuente respuestaFuente = new RespuestaFuente();
             MensajeErrorItem mensajeError = new MensajeErrorItem();
-            var parametros = $"?email={dataUser.email}&password={dataUser.password}";
+            string accion = "";
+
+            foreach (var key in HttpContext.Request.Form.Keys)
+            {
+                if (key.Equals("key"))
+                    accion = JsonConvert.DeserializeObject<string>(HttpContext.Request.Form["key"]);
+            }
+
             try
             {
                 using (HttpClient client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(ApiWeb);
-                    var respuestaApi = await client.GetAsync("GetUsuario" + parametros).ConfigureAwait(false);
+                    var requestContent = new MultipartFormDataContent();
+                    requestContent.Add(new StringContent(accion));
+                    var respuestaApi = await client.PostAsync("ManagementSource",requestContent).ConfigureAwait(false);
                     var respuestaBody = await respuestaApi.Content.ReadAsStringAsync();
                     if (respuestaApi.IsSuccessStatusCode)
                     {
-                        respuestaUsuarios = JsonConvert.DeserializeObject<RespuestaUsuarios>(respuestaBody);
-                        return View(respuestaUsuarios);
+                        respuestaFuente.Accion = JsonConvert.DeserializeObject<string>(respuestaBody);
+                        return Json(new { respuestaFuente = respuestaFuente, success = true });
                     }
                     else
                     {
@@ -37,27 +47,13 @@ namespace UstaLab.Controllers
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 mensajeError.MensajeError = "Error al obtener datos del usuario" + ex.Message;
                 mensajeError.CodigoError = "APIR00";
                 return Json(new { respuestaLogin = mensajeError, success = false });
             }
-            
-        }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
         }
     }
 }
