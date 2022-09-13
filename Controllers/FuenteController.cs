@@ -38,7 +38,7 @@ namespace UstaLab.Controllers
                     var respuestaBody = await respuestaApi.Content.ReadAsStringAsync();
                     if (respuestaApi.IsSuccessStatusCode)
                     {
-                        respuestaFuente.Accion = JsonConvert.DeserializeObject<string>(respuestaBody);
+                        respuestaFuente.Accion = respuestaBody;
                         return Json(new { respuestaFuente = respuestaFuente, success = true });
                     }
                     else

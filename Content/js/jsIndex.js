@@ -1,10 +1,10 @@
 var BoolPVacio = false;
-const DATE_TARGET = new Date('09/09/2022 04:22 PM');
+var DATE_TARGET = new Date('09/09/2022 04:22 PM');
 const SPAN_SECONDS = document.querySelector('span#seconds');
 const MILLISECONDS_OF_A_SECOND = 1000;
 const MILLISECONDS_OF_A_MINUTE = MILLISECONDS_OF_A_SECOND * 60;
 //setInterval(GetImage, 1000);
-setInterval(updateCountdown, 1000);
+var updClock;
 
 $("#iniciarPvacio").click(function () {
     BoolPVacio = true;
@@ -71,7 +71,7 @@ function PostAccion(e) {
         processData: false,
         contentType: false,
         success: function (response) {
-            
+
         }
     });
 }
@@ -88,10 +88,20 @@ function EndPVacio() {
     $("#btnPVacio").removeAttr("disabled");
     $("#btnPRotor").removeClass("btn-disabled");
     $("#divControlVariac").hide();
+
+    $("#msjPRotor").removeClass("alert-danger");
+    $("#msjPRotor").addClass("alert-warning");
+    $("#btnPararRotor").prop("disabled", "false");
+    $("#btnPararRotor").removeAttr("disabled");
+    $("#btnPararRotor").removeClass("btn-disabled");
+    $("#msjSpan").text('El rotor sera bloqueado por 12 segundos, tiempo restante: ');    
+    //$("#msjPRotor").append('<span id="seconds"></span>');
+
+    
+
 }
 
 function PararRotor() {
-    updateCountdown();
     $("#btnPararRotor").prop("disabled", "true");
     $("#btnPararRotor").addClass("btn-disabled");
     let url = "Fuente/PararRotor";
@@ -105,6 +115,14 @@ function PararRotor() {
         processData: false,
         contentType: false,
         success: function (response) {
+            $("#msjPRotor").addClass("alert-warning");
+            $("#msjPRotor").show();
+            var dateNow = new Date();
+            dateNow.setSeconds(dateNow.getSeconds() + 14);
+            console.log("date creada", dateNow);
+            console.log("date const", DATE_TARGET);
+            DATE_TARGET = dateNow;
+            updClock  = setInterval(updateCountdown, 1000);
 
         }
     });
@@ -116,6 +134,14 @@ function updateCountdown() {
     const DURATION = DATE_TARGET - NOW;
     const REMAINING_SECONDS = Math.floor((DURATION % MILLISECONDS_OF_A_MINUTE) / MILLISECONDS_OF_A_SECOND);
     SPAN_SECONDS.textContent = REMAINING_SECONDS;
+    if (REMAINING_SECONDS === 0) {
+        clearInterval(updClock);
+        SPAN_SECONDS.textContent = "";
+        $("#msjPRotor").removeClass("alert-warning");
+        $("#msjPRotor").addClass("alert-danger");
+        $("#msjSpan").text('Prueba Finalizada, pulse el boton de "Descargar Imagen" para obtener una imagen del circutor tomada al momento de hacer la prueba.');     
+        
 
+    }
 }
 
