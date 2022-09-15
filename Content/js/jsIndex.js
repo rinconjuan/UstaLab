@@ -5,6 +5,7 @@ const MILLISECONDS_OF_A_SECOND = 1000;
 const MILLISECONDS_OF_A_MINUTE = MILLISECONDS_OF_A_SECOND * 60;
 //setInterval(GetImage, 1000);
 var updClock;
+var estadoMotor = "Stop";
 
 $("#iniciarPvacio").click(function () {
     BoolPVacio = true;
@@ -145,3 +146,58 @@ function updateCountdown() {
     }
 }
 
+function ManagementMotor(e) {
+    var accionMotor = "";
+    var idBtn = e.getAttribute("id");
+    console.log("idBtn", idBtn);
+    if (idBtn == "StopMotor") {
+        $("#"+ idBtn +"").prop("disabled", "true");
+        $("#" + idBtn + "").addClass("btn-disabled");
+
+        $("#RunMotor").removeAttr("disabled");
+        $("#RunMotor").removeClass("btn-disabled");
+
+        accionMotor = "Stop";
+        estadoMotor = "Stop";
+    }
+    if (idBtn == "RunMotor") {
+        $("#" + idBtn + "").prop("disabled", "true");
+        $("#" + idBtn + "").addClass("btn-disabled");
+
+        $("#StopMotor").removeAttr("disabled");
+        $("#StopMotor").removeClass("btn-disabled");
+
+        accionMotor = "Run";
+        estadoMotor = "Run";
+
+    }
+
+    if (accionMotor !== "") {
+
+    }
+}
+$(document).on('input change', '#formControlRange', function () {
+    if (estadoMotor === "Run") {
+        var velocidad = $("#formControlRange").val();
+        $("#lbVelo").text("Velocidad Actual: " + velocidad/10 + "Hz");
+        console.log("velocidad", velocidad);
+
+        let url = "PruebaVacio/PostVelocidad";
+        let data = new FormData();
+        data.append("velocidad", JSON.stringify(velocidad))
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: data,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                
+                console.log("velocidad actualizada");
+            }
+        });
+
+
+    }
+    
+});

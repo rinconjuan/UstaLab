@@ -57,18 +57,20 @@
                             <hr style="margin-top: 0px;">
                             <h6 class="text-center"><b>Controles del variador de frecuencia</b></h6>
                             <label for="formControlRange"><i class="fa-solid fa-gear"></i> Frecuencia</label>
-                            <input type="range" min="10" max="100" step="10" class="form-control-range" id="formControlRange">
-                            <small style="float: left;">1.00 hz</small>
-                            <small style="float: right;">400.00 hz</small>
+                            <input type="range" min="0" max="600" step="10" class="form-control-range" id="formControlRange">
+                            <small style="float: left;">0.00 hz</small>
+                            <small style="float: right;">60.00 hz</small>
+                            <hr />
+                            <p id="lbVelo">Velocidad Actual: </p>
                             <br>
                             <div class="text-center">
-                                <button href="#" class="btn btn-danger btn-icon-split mr-5">
+                                <button href="#" class="btn btn-danger btn-icon-split mr-5" id="StopMotor" onclick="ManagementMotor(this)">
                                     <span class="icon text-white">
                                         <i class="fa-solid fa-stop"></i>
                                     </span>
                                     <span class="text">Parar</span>
                                 </button>
-                                <button href="#" class="btn btn-success btn-icon-split">
+                                <button href="#" class="btn btn-success btn-icon-split" id="RunMotor" onclick="ManagementMotor(this)">
                                     <span class="icon text-white">
                                         <i class="fa-solid fa-play"></i>
                                     </span>

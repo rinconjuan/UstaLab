@@ -86,5 +86,46 @@ namespace UstaLab.Controllers
             }
 
         }
+
+        [HttpPost]
+        public async Task<ActionResult> PostVelocidad()
+        {
+            int velocidad = 0;
+            MensajeErrorItem mensajeError = new MensajeErrorItem();
+            foreach (var key in HttpContext.Request.Form.Keys)
+            {
+                if (key.Equals("velocidad"))
+                    velocidad = JsonConvert.DeserializeObject<int>(HttpContext.Request.Form["velocidad"]);
+            }
+
+            var parametros = $"?velocidad={velocidad}";
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(ApiWeb);
+                    var requestContent = new MultipartFormDataContent();
+                    requestContent.Add(new StringContent(velocidad.ToString()));
+
+                    var respuestaApi = await client.PostAsync("UpdateVelocidad", requestContent).ConfigureAwait(false);
+                    var respuestaBody = await respuestaApi.Content.ReadAsStringAsync();
+                    if (respuestaApi.IsSuccessStatusCode)
+                    {
+                        return Json(new { respuestaAccion = "OK", success = true });
+                    }
+                    else
+                    {
+                        throw new Exception();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                mensajeError.MensajeError = "Error al actualizar la velocidad" + ex.Message;
+                mensajeError.CodigoError = "APIR00";
+                return Json(new { respuestaLogin = mensajeError, success = false });
+            }
+
+        }
     }
 }
