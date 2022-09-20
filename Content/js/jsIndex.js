@@ -1,9 +1,10 @@
 var BoolPVacio = false;
 var DATE_TARGET = new Date('09/09/2022 04:22 PM');
 const SPAN_SECONDS = document.querySelector('span#seconds');
-const MILLISECONDS_OF_A_SECOND = 1000;
+const MILLISECONDS_OF_A_SECOND = 500;
 const MILLISECONDS_OF_A_MINUTE = MILLISECONDS_OF_A_SECOND * 60;
-//setInterval(GetImage, 1000);
+
+setInterval(GetImage, 1000);
 var updClock;
 var estadoMotor = "Stop";
 
@@ -173,7 +174,21 @@ function ManagementMotor(e) {
     }
 
     if (accionMotor !== "") {
+        let url = "PruebaVacio/ManagementVariador";
+        let data = new FormData();
+        data.append("accion", JSON.stringify(accionMotor))
+        $.ajax({
+            
+            url: url,
+            type: "POST",
+            data: data,
+            processData: false,
+            contentType: false,
+            success: function (response) {
 
+                console.log("velocidad actualizada");
+            }
+        });
     }
 }
 $(document).on('input change', '#formControlRange', function () {
@@ -201,3 +216,7 @@ $(document).on('input change', '#formControlRange', function () {
     }
     
 });
+
+function ManagementVariador() {
+
+}
