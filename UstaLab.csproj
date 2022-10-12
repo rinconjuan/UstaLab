@@ -130,11 +130,11 @@
     <Compile Include="Models\DatosLogin.cs" />
     <Compile Include="Models\Imagenes.cs" />
     <Compile Include="Models\MensajeErrorItem.cs" />
+    <Compile Include="Models\Registro.cs" />
     <Compile Include="Models\RespuestaFuente.cs" />
     <Compile Include="Models\RespuestaUsuarios.cs" />
     <Compile Include="Models\Usuarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\AdministrarException.cs" />
     <Compile Include="Utils\ExcepcionMessage.cs" />
   </ItemGroup>
   <ItemGroup>

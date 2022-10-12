@@ -11,7 +11,7 @@ namespace UstaLab.Controllers
 {
     public class PruebaVacioController : Controller
     {
-        private string ApiWeb = "http://damian1628-001-site1.btempurl.com/";
+        private string ApiWeb = "http://damian16-001-site1.htempurl.com/";
         // GET: PruebaVacio
         
         [HttpPost]

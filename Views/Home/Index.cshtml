@@ -18,7 +18,7 @@
         <div class="row">
 
             <!-- Area Chart -->
-            <div class="col-xl-6 col-lg-5">
+            <div class="col-xl-4 col-lg-3">
                 <div class="card shadow mb-4">
                     <!-- Card Header - Dropdown -->
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -57,10 +57,10 @@
                             <hr style="margin-top: 0px;">
                             <h6 class="text-center"><b>Controles del variador de frecuencia</b></h6>
                             <label for="formControlRange"><i class="fa-solid fa-gear"></i> Frecuencia</label>
-                            <input type="range" min="0" max="600" step="10" class="form-control-range" id="formControlRange">
-                            <small style="float: left;">0.00 hz</small>
-                            <small style="float: right;">60.00 hz</small>
-                            <hr />
+                            <input type="range" value="0" min="0" max="600" step="10" class="form-control-range" id="formControlRange">
+                            <small style="float: left;">0 hz</small>
+                            <small style="float: right;">60 hz</small>
+                            <br />
                             <p id="lbVelo">Velocidad Actual: </p>
                             <br>
                             <div class="text-center">
@@ -89,8 +89,16 @@
                                     <span class="text">Parar Rotor</span>
                                 </button>
                             </div>
-                            <p class="alert alert-warning" style="margin-top:15px; display:none" id="msjPRotor"><span id="msjSpan">El rotor sera bloqueado por 12 segundos, tiempo restante:</span>
+                            <p class="alert alert-warning" style="margin-top:15px; display:none" id="msjPRotor"><span id="msjSpan">El rotor sera bloqueado por 8 segundos, tiempo restante:</span>
                             <span id="seconds"></span> <span id="seconds"></span> </pclass="alert>
+                            <div id="divBtnDescargar" class="text-right" style="margin-top: 5px; display: none">
+                                <button id="btnDescargarRegistro" href="#" class="btn btn-primary btn-icon-split" onclick="DescargarRegistro()">
+                                    <span class="icon text-white">
+                                        <i class="fa-solid fa-play"></i>
+                                    </span>
+                                    <span class="text">Descargar Registro</span>
+                                </button>
+                            </div>
                         </div>
                         <div id="divCircutor" class="text-center" style="display: none;">
                             <hr>

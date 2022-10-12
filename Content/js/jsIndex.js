@@ -1,7 +1,7 @@
 var BoolPVacio = false;
-var DATE_TARGET = new Date('09/09/2022 04:22 PM');
+var DATE_TARGET = new Date();
 const SPAN_SECONDS = document.querySelector('span#seconds');
-const MILLISECONDS_OF_A_SECOND = 500;
+const MILLISECONDS_OF_A_SECOND = 1000;
 const MILLISECONDS_OF_A_MINUTE = MILLISECONDS_OF_A_SECOND * 60;
 
 setInterval(GetImage, 1000);
@@ -21,7 +21,9 @@ $("#iniciarPvacio").click(function () {
     $("#btnPRotor").removeAttr("disabled");
     $("#btnPRotor").removeClass("btn-disabled");
     $("#divControlVariac").show();
-    
+    $("#formControlRange").prop("disabled", "true");
+    $("#StopMotor").prop("disabled", "true");
+    $("#StopMotor").addClass("btn-disabled");
 });
 
 
@@ -98,8 +100,8 @@ function EndPVacio() {
     $("#btnPararRotor").removeClass("btn-disabled");
     $("#msjSpan").text('El rotor sera bloqueado por 12 segundos, tiempo restante: ');    
     //$("#msjPRotor").append('<span id="seconds"></span>');
-
-    
+    $("#divBtnDescargar").hide();
+    $("#msjPRotor").hide();
 
 }
 
@@ -120,7 +122,7 @@ function PararRotor() {
             $("#msjPRotor").addClass("alert-warning");
             $("#msjPRotor").show();
             var dateNow = new Date();
-            dateNow.setSeconds(dateNow.getSeconds() + 14);
+            dateNow.setSeconds(dateNow.getSeconds() + 10);
             console.log("date creada", dateNow);
             console.log("date const", DATE_TARGET);
             DATE_TARGET = dateNow;
@@ -134,14 +136,17 @@ function updateCountdown() {
     // Calcs
     const NOW = new Date()
     const DURATION = DATE_TARGET - NOW;
-    const REMAINING_SECONDS = Math.floor((DURATION % MILLISECONDS_OF_A_MINUTE) / MILLISECONDS_OF_A_SECOND);
+    const REMAINING_SECONDS = Math.floor((DURATION) / MILLISECONDS_OF_A_SECOND);
     SPAN_SECONDS.textContent = REMAINING_SECONDS;
-    if (REMAINING_SECONDS === 0) {
+    console.log("REMAINING_SECONDS", REMAINING_SECONDS);
+    if (REMAINING_SECONDS === 0 || REMAINING_SECONDS < -1) {
+        console.log("Fin timer");
         clearInterval(updClock);
         SPAN_SECONDS.textContent = "";
         $("#msjPRotor").removeClass("alert-warning");
         $("#msjPRotor").addClass("alert-danger");
         $("#msjSpan").text('Prueba Finalizada, pulse el boton de "Descargar Imagen" para obtener una imagen del circutor tomada al momento de hacer la prueba.');     
+        $("#divBtnDescargar").show();
         
 
     }
@@ -157,6 +162,7 @@ function ManagementMotor(e) {
 
         $("#RunMotor").removeAttr("disabled");
         $("#RunMotor").removeClass("btn-disabled");
+        $("#formControlRange").prop("disabled", "true");
 
         accionMotor = "Stop";
         estadoMotor = "Stop";
@@ -167,6 +173,9 @@ function ManagementMotor(e) {
 
         $("#StopMotor").removeAttr("disabled");
         $("#StopMotor").removeClass("btn-disabled");
+
+        $("#formControlRange").removeAttr("disabled");
+
 
         accionMotor = "Run";
         estadoMotor = "Run";
@@ -211,12 +220,30 @@ $(document).on('input change', '#formControlRange', function () {
                 console.log("velocidad actualizada");
             }
         });
-
-
-    }
-    
+    }   
 });
 
-function ManagementVariador() {
 
+function DescargarRegistro() {
+    let url = "Fuente/GetImagen";
+    $.ajax({
+        url: url,
+        type: "POST",
+        processData: false,
+        contentType: false,
+        success: function (response) {
+            var a = document.createElement("a");
+            document.body.appendChild(a);
+            a.style = "display: none";
+            a.setAttribute('src', 'data:image/bmp;base64,' + response);
+            var json = JSON.stringify(response),
+                blob = new Blob([json], { type: "image/bmp" }),
+                url = window.URL.createObjectURL(blob); 
+            a.href = 'data:image/bmp;base64,' + response;
+            a.download = "Registro.bmp";
+            a.click();
+            window.URL.revokeObjectURL(url);
+            a.remove();
+        }
+    });
 }

@@ -14,7 +14,7 @@ namespace UstaLab.Controllers
 {
     public class LoginController : Controller
     {
-        private string ApiWeb = "http://damian1628-001-site1.btempurl.com";
+        private string ApiWeb = "http://damian16-001-site1.htempurl.com/";
         // GET: Login
         public ActionResult Index()
         {
