@@ -102,6 +102,8 @@ function EndPVacio() {
     //$("#msjPRotor").append('<span id="seconds"></span>');
     $("#divBtnDescargar").hide();
     $("#msjPRotor").hide();
+    $("#StopMotor").click();
+    $("#msjBlockRotor").hide();
 
 }
 
@@ -147,7 +149,11 @@ function updateCountdown() {
         $("#msjPRotor").addClass("alert-danger");
         $("#msjSpan").text('Prueba Finalizada, pulse el boton de "Descargar Imagen" para obtener una imagen del circutor tomada al momento de hacer la prueba.');     
         $("#divBtnDescargar").show();
-        
+        $("#StopMotor").click();
+
+
+        $("#btnIniciarGiro").removeAttr("disabled");
+        $("#btnIniciarGiro").removeClass("btn-disabled");
 
     }
 }
@@ -246,4 +252,40 @@ function DescargarRegistro() {
             a.remove();
         }
     });
+}
+
+function IniciarGiro() {
+    let velocidad = 20;
+    let url = "PruebaVacio/PostVelocidad";
+    let data = new FormData();
+    let accionMotor = "Run" 
+    data.append("velocidad", JSON.stringify(velocidad))
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: data,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+
+            $("#btnIniciarGiro").prop("disabled", "false");
+            let url = "PruebaVacio/ManagementVariador";
+            let data = new FormData();
+            data.append("accion", JSON.stringify(accionMotor))
+            $.ajax({
+
+                url: url,
+                type: "POST",
+                data: data,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+
+                    $("#msjBlockRotor").show();
+                }
+            });
+
+        }
+    });
+
 }

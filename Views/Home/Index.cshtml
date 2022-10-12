@@ -81,24 +81,33 @@
                         <div id="divBlockRotor" style="display: none;">
                             <hr style="margin-top: 0px;">
                             <h6 class="text-center"><b>Controles de rotor</b></h6>
-                            <div class="text-center">                              
-                                <button id="btnPararRotor" href="#" class="btn btn-success btn-icon-split" onclick="PararRotor()">
+                            <p class="alert alert-warning" style="margin-top:15px; display:none" id="msjBlockRotor">La frecuencia con la que se iniciara esta prueba es de 20Hz.</p>
+                            <div class="text-center">
+                                <button id="btnIniciarGiro" href="#" class="btn btn-success btn-icon-split mr-5" onclick="IniciarGiro()">
                                     <span class="icon text-white">
                                         <i class="fa-solid fa-play"></i>
+                                    </span>
+                                    <span class="text">Iniciar</span>
+                                </button>
+                                <button id="btnPararRotor" href="#" class="btn btn-danger btn-icon-split" onclick="PararRotor()">
+                                    <span class="icon text-white">
+                                        <i class="fa-solid fa-pause"></i>
                                     </span>
                                     <span class="text">Parar Rotor</span>
                                 </button>
                             </div>
-                            <p class="alert alert-warning" style="margin-top:15px; display:none" id="msjPRotor"><span id="msjSpan">El rotor sera bloqueado por 8 segundos, tiempo restante:</span>
-                            <span id="seconds"></span> <span id="seconds"></span> </pclass="alert>
-                            <div id="divBtnDescargar" class="text-right" style="margin-top: 5px; display: none">
-                                <button id="btnDescargarRegistro" href="#" class="btn btn-primary btn-icon-split" onclick="DescargarRegistro()">
-                                    <span class="icon text-white">
-                                        <i class="fa-solid fa-play"></i>
-                                    </span>
-                                    <span class="text">Descargar Registro</span>
-                                </button>
-                            </div>
+                            
+                            <p class="alert alert-warning" style="margin-top:15px; display:none" id="msjPRotor">
+                                <span id="msjSpan">El rotor sera bloqueado por 8 segundos, tiempo restante:</span>
+                                <span id="seconds"></span> <span id="seconds"></span> </pclass="alert>
+                                <div id="divBtnDescargar" class="text-right" style="margin-top: 5px; display: none">
+                                    <button id="btnDescargarRegistro" href="#" class="btn btn-primary btn-icon-split" onclick="DescargarRegistro()">
+                                        <span class="icon text-white">
+                                            <i class="fa-solid fa-play"></i>
+                                        </span>
+                                        <span class="text">Descargar Registro</span>
+                                    </button>
+                                </div>
                         </div>
                         <div id="divCircutor" class="text-center" style="display: none;">
                             <hr>
