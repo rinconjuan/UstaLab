@@ -24,7 +24,7 @@ namespace UstaLab.Controllers
                 using (HttpClient client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(ApiWeb);
-                    var respuestaApi = await client.GetAsync("DescargarImagen").ConfigureAwait(false);
+                    var respuestaApi = await client.GetAsync("DescargarImagen?Modo=NOM").ConfigureAwait(false);
                     var respuestaBody = await respuestaApi.Content.ReadAsStringAsync();
                     if (respuestaApi.IsSuccessStatusCode)
                     {

@@ -67,7 +67,7 @@ namespace UstaLab.Controllers
                 using (HttpClient client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(ApiWeb);
-                    var respuestaApi = await client.GetAsync("DescargarRegistro?IdUser=1").ConfigureAwait(false);
+                    var respuestaApi = await client.GetAsync("DescargarImagen?Modo=BLQ").ConfigureAwait(false);
                     var respuestaBody = await respuestaApi.Content.ReadAsStringAsync();
                     if (respuestaApi.IsSuccessStatusCode)
                     {

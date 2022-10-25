@@ -202,6 +202,11 @@ function ManagementMotor(e) {
             success: function (response) {
 
                 console.log("velocidad actualizada");
+                for (var i = 0; list.length; i++) {
+                    if (i.nombre != null || i.nombre != "") {
+                        $("#" + i.nombre + "Medida").text(i.medida);
+                    }
+                }
             }
         });
     }
@@ -255,7 +260,7 @@ function DescargarRegistro() {
 }
 
 function IniciarGiro() {
-    let velocidad = 20;
+    let velocidad = 15.0;
     let url = "PruebaVacio/PostVelocidad";
     let data = new FormData();
     let accionMotor = "Run" 
