@@ -1,9 +1,10 @@
+DataUser();
+
 var BoolPVacio = false;
 var DATE_TARGET = new Date();
 const SPAN_SECONDS = document.querySelector('span#seconds');
 const MILLISECONDS_OF_A_SECOND = 1000;
 const MILLISECONDS_OF_A_MINUTE = MILLISECONDS_OF_A_SECOND * 60;
-
 setInterval(GetImage, 1000);
 var updClock;
 var estadoMotor = "Stop";
@@ -292,5 +293,9 @@ function IniciarGiro() {
 
         }
     });
+
+}
+
+function DataUser() {
 
 }

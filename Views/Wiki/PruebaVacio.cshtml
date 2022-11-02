@@ -4,34 +4,27 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Wiki - Prueba Vacio</h2>
 
 
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-xl-8 col-lg-10">
-            <div class="card shadow mb-8">
+    <div class="row ml-5 mr-5">
+        <div class="col-xl-12 col-lg-12" >
+            <div class="card shadow">
                 <!-- Card Header - Dropdown -->
                 <!-- Card Body -->
-                <div class="card-body text-center">
-
+                <div class="card-body">
+                    <h1 class="text-center">Wiki - Prueba Vacio</h1>
+                    <p>La implementación de la prueba de vacío en motores de inducción se realiza con el fin de establecer ciertas características físicas del motor que permite conocer su comportamiento ante diferentes condiciones de operación. Durante la prueba, se energiza el motor de inducción de CA a una fuente variable de voltaje sin aplicar carga, dejando correr el motor libremente. Esta condición provoca que el rotor gire aproximadamente a la velocidad de sincronismo, y esto ocasiona que exista un deslizamiento mínimo entre la velocidad de sincronismo y la velocidad mecánica del rotor</p>
                 </div>
             </div>
-        </div>
-
-        <div class="col-xl-4 col-lg-3">
-            <div class="card shadow mb-8">
-                <!-- Card Header - Dropdown -->
-                <!-- Card Body -->
-                <div class="card-body text-center">
-
-                </div>
-            </div>
-        </div>
+        </div>        
     </div>
     
 </div>
 
-    <script src="~/Content/plugins/vendor/jquery/jquery.js"></script>
-    <script src="~/Content/js/jsIndex.js"></script>
-    <script src="~/Content/js/utils.js"></script>
+<script src="~/Content/plugins/vendor/jquery/jquery.js"></script>
+<script src="~/Content/js/jsIndex.js"></script>
+<script src="~/Content/js/utils.js"></script>
+<script>
+    $("#navWiki").addClass("active");
+</script>

@@ -11,11 +11,15 @@ namespace UstaLab.Controllers
         // GET: Wiki
         public ActionResult PruebaRotorBloqueado()
         {
+            var nameUser = Session["UserName"];
+            ViewBag.MSG = Session["UserName"];
             return View();
         }
 
         public ActionResult PruebaVacio()
         {
+            var nameUser = Session["UserName"];
+            ViewBag.MSG = Session["UserName"];
             return View();
         }
     }

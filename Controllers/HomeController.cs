@@ -13,6 +13,17 @@ namespace UstaLab.Controllers
     {
         private string ApiWeb = "http://damian16-001-site1.htempurl.com/";
 
+
+
+        public ActionResult Index()
+        {
+            var nameUser = Session["UserName"];
+            ViewBag.MSG = Session["UserName"];
+            var timeSession = Session.Timeout;
+            return View();
+        }
+
+
         [HttpPost]
         public async Task<ActionResult> Index(DatosLogin dataUser)
         {
@@ -29,7 +40,9 @@ namespace UstaLab.Controllers
                     if (respuestaApi.IsSuccessStatusCode)
                     {
                         respuestaUsuarios = JsonConvert.DeserializeObject<RespuestaUsuarios>(respuestaBody);
-                        return View(respuestaUsuarios);
+                        var nameUser = Session["UserName"];
+                        ViewBag.MSG = Session["UserName"];
+                        return View();
                     }
                     else
                     {

@@ -1,8 +1,6 @@
-﻿@model UstaLab.Models.RespuestaUsuarios
+﻿
 @{
-    ViewBag.Title = "Home Page";
-    var nameUser = Model.Usuario.Nombres + " " + Model.Usuario.Nombres;
-
+    ViewBag.Title = "Laboratorio";
 }
 
 <div class="container-fluid">
@@ -202,8 +200,3 @@
 <script src="~/Content/plugins/vendor/jquery/jquery.js"></script>
 <script src="~/Content/js/jsIndex.js"></script>
 <script src="~/Content/js/utils.js"></script>
-<script>
-    var model = @Html.Raw(Json.Encode(Model));
-    console.log("userName", model);
-    $("#nameUser").text(model.Usuario.Nombres + " " + model.Usuario.Apellidos);
-</script>

@@ -44,7 +44,9 @@ namespace UstaLab.Controllers
                     var respuestaBody = await respuestaApi.Content.ReadAsStringAsync();
                     respuestaLogin = JsonConvert.DeserializeObject<RespuestaUsuarios>(respuestaBody);
                     if (respuestaLogin.EstadoLogin)
-                    {                        
+                    {
+                        Session["UserName"] = respuestaLogin.Usuario.Nombres + " " + respuestaLogin.Usuario.Apellidos;
+                        //Session.Timeout = 12;
                         return Json(new { respuestaLogin = respuestaLogin, success = true });
                     }
                     else
@@ -97,6 +99,7 @@ namespace UstaLab.Controllers
                         var resAgendaBody = await respuestaAgenda.Content.ReadAsStringAsync();
                         if (respuestaAgenda.StatusCode == System.Net.HttpStatusCode.OK)
                         {
+
                             return Json(new { respuestaLogin = respuestaLogin, success = true });
 
                         }
