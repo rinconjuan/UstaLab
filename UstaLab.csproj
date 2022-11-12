@@ -137,10 +137,12 @@
     </Compile>
     <Compile Include="Models\DatosAgenda.cs" />
     <Compile Include="Models\DatosLogin.cs" />
+    <Compile Include="Models\DatosUsuario.cs" />
     <Compile Include="Models\Imagenes.cs" />
-    <Compile Include="Models\MensajeErrorItem.cs" />
+    <Compile Include="Models\MensajeError.cs" />
     <Compile Include="Models\Registro.cs" />
     <Compile Include="Models\RespuestaFuente.cs" />
+    <Compile Include="Models\RespuestaNuevoUsuario.cs" />
     <Compile Include="Models\RespuestaUsuarios.cs" />
     <Compile Include="Models\Usuarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

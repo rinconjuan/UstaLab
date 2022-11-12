@@ -19,7 +19,7 @@ namespace UstaLab.Controllers
         {
 
             RespuestaFuente respuestaFuente = new RespuestaFuente();
-            MensajeErrorItem mensajeError = new MensajeErrorItem();
+            MensajeError mensajeError = new MensajeError();
             string accion = "";
 
             foreach (var key in HttpContext.Request.Form.Keys)
@@ -50,8 +50,7 @@ namespace UstaLab.Controllers
             }
             catch (Exception ex)
             {
-                mensajeError.MensajeError = "Error al obtener datos del usuario" + ex.Message;
-                mensajeError.CodigoError = "APIR00";
+                mensajeError.Mensaje = "Error al obtener datos del usuario" + ex.Message;
                 return Json(new { respuestaLogin = mensajeError, success = false });
             }
 
@@ -61,7 +60,7 @@ namespace UstaLab.Controllers
         public async Task<ActionResult> GetImagen()
         {
             Registro imagen = new Registro();
-            MensajeErrorItem mensajeError = new MensajeErrorItem();
+            MensajeError mensajeError = new MensajeError();
             try
             {
                 using (HttpClient client = new HttpClient())
@@ -84,8 +83,7 @@ namespace UstaLab.Controllers
             }
             catch (Exception ex)
             {
-                mensajeError.MensajeError = "Error al obtener imagen" + ex.Message;
-                mensajeError.CodigoError = "APIR00";
+                mensajeError.Mensaje = "Error al obtener imagen" + ex.Message;              
                 return Json(new { respuestaLogin = mensajeError, success = false });
             }
         }

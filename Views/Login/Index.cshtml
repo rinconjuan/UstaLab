@@ -47,6 +47,8 @@
                                         <h1 class="h4 text-gray-900">Bienvenidos</h1>
                                     </div>
                                     <span class="label-error text-center" id="errorLogin" style="display: none"></span>
+                                    <span class="label-sucess text-center" id="sucessLogin" style="display: none"></span>
+
                                     @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { @class = "noo-ajax-login-form form-horizontal", role = "form", @id = "formLogin" }))
                                     {
                                         @Html.AntiForgeryToken()
@@ -72,6 +74,9 @@
                                             <a class="btn btn-secondary btn-user btn-block" data-toggle="modal" data-target="#agendaModal">
                                                 Agendar espacio
                                             </a>
+                                            <a class="btn btn-info btn-user btn-block" data-toggle="modal" data-target="#registerModal">
+                                                Registrarse
+                                            </a>
                                         </form>
                                     }
 
@@ -91,7 +96,7 @@
 
     </div>
 
-    <div class="modal" id="agendaModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal" id="agendaModal" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog" role="dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -100,26 +105,81 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">            
+                <div class="modal-body">
                     <p class="label-error text-center" id="errorEmail" style="display: none"></p>
                     <p>Seleccione un espacio para apartar el uso del laboratorio</p>
-                    
+
                     <div class="form-group row">
                         <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                            <input type="email" id="emailUser" placeholder="Ingrese Correo Institucional" style="width: 100%"/>
+                            <input type="email" id="emailUser" placeholder="Ingrese Correo Institucional" style="width: 100%" />
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="staticEmail" class="col-sm-2 col-form-label">Fecha a agendar</label>
                         <div class="col-sm-10">
-                            <input type="datetime-local" id="fechaAgenda" style="width: 100%"/>
+                            <input type="datetime-local" id="fechaAgenda" style="width: 100%" />
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-primary" onclick="ConsultarAgenda()">Confirmar</a>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal" id="btnCancelAge">Cancelar</button>
+                    <a class="btn btn-primary" onclick="ConsultarAgenda()" id="btnConfiUser">Confirmar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="registerModal" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Nuevo Usuario</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close" >
+                        <span aria-hidden="true" id="btnCloseGModal">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="label-error text-center" id="errorUsuario" style="display: none"></p>
+                    <p class="label-sucess text-center" id="successUsuario" style="display: none"></p>
+                    <div id="generalForm">
+                        <p>Ingrese los datos necesarios para crear el nuevo usuario</p>
+                        <div class="form-group row">
+                            <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+                            <div class="col-sm-10">
+                                <input type="email" id="emailUserNew" placeholder="Ingrese Correo Institucional" style="width: 80%; margin-left: 5%" />
+                                <label for="emailUserNew" style="margin-left: 5%; display: none; color: red" id="lbEmail">Este campo es obligatorio</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="staticEmail" class="col-sm-2 col-form-label">Contraseña</label>
+                            <div class="col-sm-10">
+                                <input type="password" id="passwordUser" style="width: 80%; margin-left: 5%" />
+                                <label for="passwordUser" style="margin-left: 5%; display: none; color: red" id="lbPass">Este campo es obligatorio</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="staticEmail" class="col-sm-2 col-form-label">Nombres</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="nombreUser" style="width: 80%; margin-left: 5%" />
+                                <label for="nombreUser" style="margin-left: 5%; display: none; color: red" id="lbName">Este campo es obligatorio</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="staticEmail" class="col-sm-2 col-form-label">Apellidos</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="apellidoUser" style="width: 80%; margin-left: 5%" />
+                                <label for="apellidoUser" style="margin-left: 5%; display: none; color: red" id="lbLastname">Este campo es obligatorio</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal" id="btnCancelUser">Cancelar</button>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal" id="btnCerrar" style="display:none">Cerrar</button>
+
+                    <button class="btn btn-primary" onclick="CrearUsuario()" id="btnCrearUser">Crear</button>
                 </div>
             </div>
         </div>

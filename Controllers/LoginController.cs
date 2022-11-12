@@ -4,10 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using UstaLab.Modelos;
 using UstaLab.Models;
 using UstaLab.Utils;
 namespace UstaLab.Controllers
@@ -24,7 +26,7 @@ namespace UstaLab.Controllers
         [HttpPost]
         public async Task<ActionResult> Login()
         {
-            MensajeErrorItem mensajeError = new MensajeErrorItem();
+            MensajeError mensajeError = new MensajeError();
             RespuestaUsuarios respuestaLogin = new RespuestaUsuarios();
             DatosLogin datosLogin = new DatosLogin();
             try
@@ -51,8 +53,7 @@ namespace UstaLab.Controllers
                     }
                     else
                     {                        
-                        mensajeError.MensajeError = "El usuario no existe o se ha digitado mal la contraseña";
-                        mensajeError.CodigoError = "APIR00";
+                        mensajeError.Mensaje = "El usuario no existe o se ha digitado mal la contraseña";
                         return Json(new { respuestaLogin = mensajeError, success = false });
                                                   
                     }
@@ -69,7 +70,7 @@ namespace UstaLab.Controllers
         [HttpPost]
         public async Task<ActionResult> ConsultaUsuario()
         {
-            MensajeErrorItem mensajeError = new MensajeErrorItem();
+            MensajeError mensajeError = new MensajeError();
             Usuarios respuestaLogin = new Usuarios();
             string email = "";
             DateTime fechaIni = new DateTime();
@@ -87,7 +88,7 @@ namespace UstaLab.Controllers
 
                 using (HttpClient client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("https://localhost:44393/");
+                    client.BaseAddress = new Uri(ApiWeb);
                     var respuestaApi = await client.GetAsync("GetDatos" + parametros).ConfigureAwait(false);
                     var respuestaBody = await respuestaApi.Content.ReadAsStringAsync();
                     respuestaLogin = JsonConvert.DeserializeObject<Usuarios>(respuestaBody);
@@ -110,14 +111,51 @@ namespace UstaLab.Controllers
                     }
                     else
                     {
-                        mensajeError.MensajeError = "El email ingresado no se encuentra en el sistema";
-                        mensajeError.CodigoError = "APIR00";
+                        mensajeError.Mensaje = "El email ingresado no se encuentra en el sistema";
                         return Json(new { respuestaLogin = mensajeError, success = false });
 
                     }
                 }
             }
             catch (ExcepcionMessage ex)
+            {
+                return Json(new { respuestaLogin = ex.Message, success = false });
+            }
+
+
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Nuevousuario()
+        {
+            MensajeError mensajeError = new MensajeError();
+            DatosUsuario datosUser = new DatosUsuario();
+            RespuestaNuevoUsuario respuesta = new RespuestaNuevoUsuario();
+            try
+            {
+
+                foreach (var key in HttpContext.Request.Form.Keys)
+                {
+                    if (key.Equals("data"))
+                        datosUser = JsonConvert.DeserializeObject<DatosUsuario>(HttpContext.Request.Form["data"]);
+                   
+                }
+
+                using (HttpClient client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(ApiWeb);
+                    var requestContent = new StringContent(JsonConvert.SerializeObject(datosUser).ToString(), Encoding.UTF8, "application/json");
+                    var respuestaApi = await client.PostAsync("AddUser", requestContent).ConfigureAwait(false);
+                    var respuestaBody = await respuestaApi.Content.ReadAsStringAsync();
+                    if (!respuestaApi.IsSuccessStatusCode)
+                        throw new Exception(respuestaBody.ToString());
+
+                    respuesta = JsonConvert.DeserializeObject<RespuestaNuevoUsuario>(respuestaBody);                    
+                    return Json(new { respuestaLogin = respuesta, success = true });
+
+                }
+            }
+            catch (Exception ex)
             {
                 return Json(new { respuestaLogin = ex.Message, success = false });
             }

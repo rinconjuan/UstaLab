@@ -28,7 +28,7 @@ namespace UstaLab.Controllers
         public async Task<ActionResult> Index(DatosLogin dataUser)
         {
             RespuestaUsuarios respuestaUsuarios = new RespuestaUsuarios();
-            MensajeErrorItem mensajeError = new MensajeErrorItem();
+            MensajeError mensajeError = new MensajeError();
             var parametros = $"?email={dataUser.email}&password={dataUser.password}";
             try
             {
@@ -52,8 +52,7 @@ namespace UstaLab.Controllers
             }
             catch(Exception ex)
             {
-                mensajeError.MensajeError = "Error al obtener datos del usuario" + ex.Message;
-                mensajeError.CodigoError = "APIR00";
+                mensajeError.Mensaje = "Error al obtener datos del usuario" + ex.Message;
                 return Json(new { respuestaLogin = mensajeError, success = false });
             }
             

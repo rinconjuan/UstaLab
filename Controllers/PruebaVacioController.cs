@@ -18,7 +18,7 @@ namespace UstaLab.Controllers
         public async Task<ActionResult> GetImagen()
         {
             Imagenes imagen = new Imagenes();
-            MensajeErrorItem mensajeError = new MensajeErrorItem();
+            MensajeError mensajeError = new MensajeError();
             try
             {
                 using (HttpClient client = new HttpClient())
@@ -40,8 +40,7 @@ namespace UstaLab.Controllers
             }
             catch(Exception ex)
             {
-                mensajeError.MensajeError = "Error al obtener imagen" +  ex.Message;
-                mensajeError.CodigoError = "APIR00";
+                mensajeError.Mensaje = "Error al obtener imagen" +  ex.Message;
                 return Json(new { respuestaLogin = mensajeError, success = false });
             }            
         }
@@ -50,7 +49,7 @@ namespace UstaLab.Controllers
         public async Task<ActionResult> PostAccion()
         {
             string keyPost = "";
-            MensajeErrorItem mensajeError = new MensajeErrorItem();
+            MensajeError mensajeError = new MensajeError();
             foreach (var key in HttpContext.Request.Form.Keys)
             {
                 if (key.Equals("key"))
@@ -80,8 +79,7 @@ namespace UstaLab.Controllers
             }
             catch (Exception ex)
             {
-                mensajeError.MensajeError = "Error al obtener imagen" + ex.Message;
-                mensajeError.CodigoError = "APIR00";
+                mensajeError.Mensaje= "Error al obtener imagen" + ex.Message;
                 return Json(new { respuestaLogin = mensajeError, success = false });
             }
 
@@ -91,7 +89,7 @@ namespace UstaLab.Controllers
         public async Task<ActionResult> PostVelocidad()
         {
             int velocidad = 0;
-            MensajeErrorItem mensajeError = new MensajeErrorItem();
+            MensajeError mensajeError = new MensajeError();
             foreach (var key in HttpContext.Request.Form.Keys)
             {
                 if (key.Equals("velocidad"))
@@ -121,8 +119,7 @@ namespace UstaLab.Controllers
             }
             catch (Exception ex)
             {
-                mensajeError.MensajeError = "Error al actualizar la velocidad" + ex.Message;
-                mensajeError.CodigoError = "APIR00";
+                mensajeError.Mensaje = "Error al actualizar la velocidad" + ex.Message;
                 return Json(new { respuestaLogin = mensajeError, success = false });
             }
 
@@ -133,7 +130,7 @@ namespace UstaLab.Controllers
         {
             string accion = "";
             bool boolAccion = new bool();
-            MensajeErrorItem mensajeError = new MensajeErrorItem();
+            MensajeError mensajeError = new MensajeError();
             foreach (var key in HttpContext.Request.Form.Keys)
             {
                 if (key.Equals("accion"))
@@ -172,8 +169,8 @@ namespace UstaLab.Controllers
             }
             catch (Exception ex)
             {
-                mensajeError.MensajeError = "Error al actualizar la velocidad" + ex.Message;
-                mensajeError.CodigoError = "APIR00";
+                mensajeError.Mensaje = "Error al actualizar la velocidad" + ex.Message;
+              
                 return Json(new { respuestaLogin = mensajeError, success = false });
             }
 
