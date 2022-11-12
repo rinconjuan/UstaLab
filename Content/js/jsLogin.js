@@ -88,13 +88,18 @@ function ConsultarAgenda() {
             if (response.success) {
                 console.log(response);
                 if (response.success) {
-                    $("#sucessLogin").text("Espacio agendado, ya puede cerrar esta ventana");
-                    $("#sucessLogin").show();
+                    $("#sucessAgenda").text("Espacio agendado, ya puede cerrar esta ventana");
+                    $("#sucessAgenda").show();
+                    $("#agendaBody").hide();
+                    $("#btnConfiAge").hide();
+                    $("#btnCancelAge").hide();
+                    $("#btnCloseAge").show();
                 }
 
             } else {
+                console.log(response);
                 let error = response.respuestaLogin;
-                $("#errorEmail").text(error.Mensaje);
+                $("#errorEmail").text(error);
                 $("#errorEmail").show();
 
                 
@@ -159,7 +164,7 @@ function CrearUsuario() {
                 $("#generalForm").hide();
                 $("#btnCancelUser").hide();
                 $("#btnCrearUser").hide();
-                $("#btnCerrar").show();
+                $("#btnCloseAge").show();
 
             } else {
                 let error = response.respuestaLogin;
@@ -215,8 +220,76 @@ $("#btnCancelUser").click(function () {
 
     $("#errorUsuario").hide();
     $("#errorUsuario").text('');
+
 });
 
+
+$("#btnCancelAge").click(function () {
+    $("#emailUser").val("");
+    
+
+    $("#fechaAgenda").removeAttr("value");
+    var dt = new Date();
+    var Fromdatetime = dt.getFullYear() + "-" + ("0" + (dt.getMonth() + 1)).slice(-2) + "-" + ("0" + dt.getDate()).slice(-2) + "T" + ("0" + dt.getHours()).slice(-2) + ":" + ("0" + dt.getMinutes()).slice(-2) + ":" + ("00");
+    $('#fechaAgenda').attr('value', Fromdatetime);
+    $("#fechaAgenda").val(Fromdatetime);
+   
+
+    $("#sucessAgenda").hide();
+    $("#sucessAgenda").text('');
+
+    $("#errorEmail").hide();
+    $("#errorEmail").text('');
+});
+
+$("#btnCloseAge").click(function () {
+    $("#emailUser").val("");
+    $("#fechaAgenda").val("");
+
+    $("#fechaAgenda").removeAttr("value");
+    var dt = new Date();
+    var Fromdatetime = dt.getFullYear() + "-" + ("0" + (dt.getMonth() + 1)).slice(-2) + "-" + ("0" + dt.getDate()).slice(-2) + "T" + ("0" + dt.getHours()).slice(-2) + ":" + ("0" + dt.getMinutes()).slice(-2) + ":" + ("00");
+    $('#fechaAgenda').attr('value', Fromdatetime);
+    $("#fechaAgenda").val(Fromdatetime);
+
+    $("#sucessAgenda").hide();
+    $("#sucessAgenda").text('');
+
+    $("#errorEmail").hide();
+    $("#errorEmail").text('');
+
+    $("#agendaBody").show();
+    $("#btnCancelUser").show();
+
+    $("#btnCloseAge").hide();
+    $("#btnConfiAge").show();
+
+
+});
+
+
+$("#btnGCloseAge").click(function () {
+    $("#emailUser").val("");
+    $("#fechaAgenda").removeAttr("value");
+    var dt = new Date();
+    var Fromdatetime = dt.getFullYear() + "-" + ("0" + (dt.getMonth() + 1)).slice(-2) + "-" + ("0" + dt.getDate()).slice(-2) + "T" + ("0" + dt.getHours()).slice(-2) + ":" + ("0" + dt.getMinutes()).slice(-2) + ":" + ("00");
+    $('#fechaAgenda').attr('value', Fromdatetime);
+
+
+    $("#sucessAgenda").hide();
+    $("#sucessAgenda").text('');
+
+    $("#errorEmail").hide();
+    $("#errorEmail").text('');
+
+    $("#agendaBody").show();
+    $("#btnCancelAge").show();
+    $("#btnConfiAge").show();
+
+
+    $("#btnCloseAge").hide();
+
+});
 
 function mapDatosUsuario(_email, _passw, _nombre, _apellido) {
     let DatosUsuario = {
@@ -225,6 +298,5 @@ function mapDatosUsuario(_email, _passw, _nombre, _apellido) {
         Email: _email,
         Contrasenia: _passw,
     }
-
     return DatosUsuario;
 }
