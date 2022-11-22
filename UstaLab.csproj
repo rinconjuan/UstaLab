@@ -2278,6 +2278,8 @@
     <Content Include="Content\plugins\vendor\fullcalendar-5.10.2\README.md" />
     <Content Include="Content\plugins\vendor\jquery\jquery.min.map" />
     <Content Include="Content\plugins\vendor\jquery\jquery.slim.min.map" />
+    <None Include="Properties\PublishProfiles\damian216-001-site1 - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\damian216-001-site1 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
