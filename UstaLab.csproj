@@ -136,12 +136,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Agenda.cs" />
     <Compile Include="Models\DatosAgenda.cs" />
     <Compile Include="Models\DatosLogin.cs" />
     <Compile Include="Models\DatosUsuario.cs" />
     <Compile Include="Models\Imagenes.cs" />
     <Compile Include="Models\MensajeError.cs" />
     <Compile Include="Models\Registro.cs" />
+    <Compile Include="Models\RespuestaAgenda.cs" />
     <Compile Include="Models\RespuestaFuente.cs" />
     <Compile Include="Models\RespuestaNuevoUsuario.cs" />
     <Compile Include="Models\RespuestaUsuarios.cs" />

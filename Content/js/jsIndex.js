@@ -1,8 +1,4 @@
 DataUser();
-
-var dateCookie = new Date();
-dateCookie.setUTCMinutes(dateCookie.getMinutes() + 1);
-document.cookie = "validatSesion=Session; expires=" + dateCookie;
     
 var BoolPVacio = false;
 var DATE_TARGET = new Date();
@@ -12,14 +8,14 @@ const MILLISECONDS_OF_A_MINUTE = MILLISECONDS_OF_A_SECOND * 60;
 setInterval(GetImage, 1000);
 var updClock;
 var estadoMotor = "Stop";
-//setInterval(ValidateCookie, 1000);
+setInterval(ValidateCookie, 1000);
 
 
 
 function ValidateCookie() {
     var match = document.cookie.match(new RegExp('(^| )' + "validatSesion" + '=([^;]+)'));
     if (!match) {
-        window.location.href = "/Login/Index"
+        window.location.href = "/Login/LogOut"
     }
 }
 

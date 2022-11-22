@@ -50,25 +50,45 @@ namespace UstaLab.Controllers
                     respuestaLogin = JsonConvert.DeserializeObject<RespuestaUsuarios>(respuestaBody);
                     if (respuestaLogin.EstadoLogin)
                     {
-                        SimpleUser sUser = new SimpleUser();
-                        sUser.Nombres = respuestaLogin.Usuario.Nombres;
-                        sUser.Apellidos = respuestaLogin.Usuario.Apellidos;
-                        sUser.Email = respuestaLogin.Usuario.Email;
+                        var paramAgenda = $"?FechaInicio={DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}&FechaFin={(DateTime.Now.AddMinutes(30)).ToString("yyyyy-MM-dd HH:mm:ss")}&IdUser={respuestaLogin.Usuario.idUser}&Modo=LOG";
+
+                        var respuestaAgenda = await client.GetAsync("GetAgenda" + paramAgenda).ConfigureAwait(false);
+                        var resAgendaBody = await respuestaAgenda.Content.ReadAsStringAsync();
+                        if (respuestaAgenda.StatusCode == System.Net.HttpStatusCode.OK)
+                        {
+
+                            SimpleUser sUser = new SimpleUser();
+                            sUser.Nombres = respuestaLogin.Usuario.Nombres;
+                            sUser.Apellidos = respuestaLogin.Usuario.Apellidos;
+                            sUser.Email = respuestaLogin.Usuario.Email;
+
+                            
+                            var bodyAgenda = JsonConvert.DeserializeObject<RespuestaAgenda>(resAgendaBody);
+                            var fechaFinSession = "";
+                            foreach(var fecha in bodyAgenda.Agendas)
+                            {
+                                fechaFinSession = fecha.FechaFin.ToString("yyyy/MM/dd HH:mm:ss");                               
+
+                            }
+                            HttpCookie cokkieLog = new HttpCookie(sUser.Email);
+                            cokkieLog.Name = sUser.Email;
+                            cokkieLog.Expires = DateTime.Now.AddMinutes(1.0);
+                            Request.Cookies.Add(cokkieLog);
+                            Response.Cookies.Add(FormsAuthentication.GetAuthCookie(sUser.Email, true));
+                            Session["UserName"] = respuestaLogin.Usuario.Nombres + " " + respuestaLogin.Usuario.Apellidos;
+                            Session["User"] = sUser;
 
 
 
-                        HttpCookie cokkieLog = new HttpCookie(sUser.Email);
-                        cokkieLog.Name = sUser.Email;
-                        cokkieLog.Expires = DateTime.Now.AddMinutes(1.0);
-                        Request.Cookies.Add(cokkieLog);
-                        Response.Cookies.Add(FormsAuthentication.GetAuthCookie(sUser.Email, true));
-                        Session["UserName"] = respuestaLogin.Usuario.Nombres + " " + respuestaLogin.Usuario.Apellidos;
-                        Session["User"] = sUser;
-                        NameUser = sUser.Email;
+                            return Json(new { respuestaLogin = respuestaLogin, respuestaAgenda = fechaFinSession, success = true });
 
-
-
-                        return Json(new { respuestaLogin = respuestaLogin, success = true });
+                        }
+                        else
+                        {
+                            mensajeError.Mensaje = "Usted no esta agendado para esta franja horaria, intente mas tarde";
+                            return Json(new { respuestaLogin = mensajeError, success = false });
+                        }
+                        
                     }
                     else
                     {                        
@@ -86,13 +106,10 @@ namespace UstaLab.Controllers
                 
         }
 
-        public ActionResult CheckLogin()
+        public ActionResult LogOut()
         {
-            if (Response.Cookies[NameUser] == null) return Json(0, JsonRequestBehavior.AllowGet);
-            var cookie = Request.Cookies["CookieName"].Value;
-            var ticket = FormsAuthentication.Decrypt(cookie);
-            var secondsRemaining = Math.Round((ticket.Expiration - DateTime.Now).TotalSeconds, 0);
-            return Json(secondsRemaining, JsonRequestBehavior.AllowGet);
+            Session.Clear();
+            return RedirectToAction("Index", "Login");
         }
 
         [HttpPost]
@@ -124,7 +141,7 @@ namespace UstaLab.Controllers
                     {
                         DateTime fechaFin = fechaIni.AddMinutes(30);
 
-                        //var requestContent = new StringContent(JsonConvert.SerializeObject(ag).ToString(), Encoding.UTF8, "application/json");
+                        
                         var paramAgenda = $"?FechaInicio={fechaIni.ToString("yyyyy-MM-dd HH:mm:ss")}&FechaFin={fechaFin.ToString("yyyyy-MM-dd HH:mm:ss")}&IdUser={respuestaLogin.idUser}&Modo=INS";
 
 

@@ -25,6 +25,12 @@ function PostLogin(email, contrasenia, validation) {
 
             if (response.success) {
                 console.log(response);
+                var fechaString = response.respuestaAgenda;
+                var fechaFinSession = new Date(fechaString);
+
+
+                document.cookie = "validatSesion=Session; expires=" + fechaFinSession.toUTCString();
+
                 $("#formLogin").submit();
                 $("#errorLogin").empty();
                 $("#errorLogin").hide();
@@ -33,6 +39,10 @@ function PostLogin(email, contrasenia, validation) {
 
                 $("#errorLogin").text(error.Mensaje);
                 $("#errorLogin").show();
+
+                setTimeout(() => {
+                    $("#errorLogin").hide();
+                }, "5000")
             }
         }
     });
@@ -206,6 +216,9 @@ $("#btnCloseGModal").click(function () {
     $("#errorUsuario").hide();
     $("#errorUsuario").text('');
 
+    $("#generalForm").show();
+    $("#btnCancelUser").show();
+    $("#btnCrearUser").show();
 });
 
 
