@@ -17,12 +17,15 @@ namespace UstaLab.Controllers
     public class LoginController : Controller
     {
         private string ApiWeb = "http://damian16-001-site1.htempurl.com/";
+        private string NameUser = "";
         // GET: Login
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View();
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<ActionResult> Login()
         {
@@ -38,7 +41,7 @@ namespace UstaLab.Controllers
                         datosLogin = JsonConvert.DeserializeObject<DatosLogin>(HttpContext.Request.Form["data"]);                    
                 }
                 var parametros = $"?email={datosLogin.email}&password={datosLogin.password}";
-
+                
                 using (HttpClient client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(ApiWeb);
@@ -47,8 +50,24 @@ namespace UstaLab.Controllers
                     respuestaLogin = JsonConvert.DeserializeObject<RespuestaUsuarios>(respuestaBody);
                     if (respuestaLogin.EstadoLogin)
                     {
+                        SimpleUser sUser = new SimpleUser();
+                        sUser.Nombres = respuestaLogin.Usuario.Nombres;
+                        sUser.Apellidos = respuestaLogin.Usuario.Apellidos;
+                        sUser.Email = respuestaLogin.Usuario.Email;
+
+
+
+                        HttpCookie cokkieLog = new HttpCookie(sUser.Email);
+                        cokkieLog.Name = sUser.Email;
+                        cokkieLog.Expires = DateTime.Now.AddMinutes(1.0);
+                        Request.Cookies.Add(cokkieLog);
+                        Response.Cookies.Add(FormsAuthentication.GetAuthCookie(sUser.Email, true));
                         Session["UserName"] = respuestaLogin.Usuario.Nombres + " " + respuestaLogin.Usuario.Apellidos;
-                        //Session.Timeout = 12;
+                        Session["User"] = sUser;
+                        NameUser = sUser.Email;
+
+
+
                         return Json(new { respuestaLogin = respuestaLogin, success = true });
                     }
                     else
@@ -65,6 +84,15 @@ namespace UstaLab.Controllers
             }           
 
                 
+        }
+
+        public ActionResult CheckLogin()
+        {
+            if (Response.Cookies[NameUser] == null) return Json(0, JsonRequestBehavior.AllowGet);
+            var cookie = Request.Cookies["CookieName"].Value;
+            var ticket = FormsAuthentication.Decrypt(cookie);
+            var secondsRemaining = Math.Round((ticket.Expiration - DateTime.Now).TotalSeconds, 0);
+            return Json(secondsRemaining, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

@@ -306,7 +306,30 @@
 <script>
     var cc = @Html.Raw(Json.Encode(ViewBag.MSG));
     $("#nameUser").text((cc != null ? cc : ""));
-    console.log("cc layout", cc);   
+
+    //$(function () {
+    //    setTimeout(doStuff, 1000);
+    //});
+    //function doStuff() {
+    //    $.ajax("/Login/CheckLogin").done(function (data) {
+    //        if (data <= 60) {
+    //            startLogout(data);
+    //        } else {
+    //            setTimeout(doStuff, 1000);
+    //        }
+    //    });
+    //}
+
+    //function startLogout(seconds) {
+    //    var countdown = setInterval(function () {
+    //        //Show something here
+    //        if (countdown == 0) {
+    //            clearInterval(countdown);
+    //            console.log("FIN SESION");
+    //        }
+    //        seconds--;
+    //    }, 1000);
+    //}
 </script>
 </body>
 

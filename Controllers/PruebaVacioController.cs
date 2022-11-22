@@ -6,15 +6,18 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using UstaLab.Filtros;
 using UstaLab.Models;
 namespace UstaLab.Controllers
 {
+    
     public class PruebaVacioController : Controller
     {
         private string ApiWeb = "http://damian16-001-site1.htempurl.com/";
         // GET: PruebaVacio
         
         [HttpPost]
+        [ValidacionSesion]
         public async Task<ActionResult> GetImagen()
         {
             Imagenes imagen = new Imagenes();

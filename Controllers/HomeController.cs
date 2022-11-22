@@ -8,18 +8,18 @@ using System.Web;
 using System.Web.Mvc;
 using UstaLab.Models;
 namespace UstaLab.Controllers
-{    
+{
+    [Authorize]
     public class HomeController : Controller
     {
         private string ApiWeb = "http://damian16-001-site1.htempurl.com/";
 
 
-
+        
         public ActionResult Index()
         {
             var nameUser = Session["UserName"];
             ViewBag.MSG = Session["UserName"];
-            var timeSession = Session.Timeout;
             return View();
         }
 
