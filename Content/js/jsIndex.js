@@ -67,6 +67,8 @@ function GetImage() {
             processData: false,
             contentType: false,
             success: function (response) {
+                console.log("response", response);
+                console.log("response.imagen", response.imagen);
                 $("#imgCircutor").attr('src', 'data:image/bmp;base64,' + response.imagen);
                 console.log("Get imagen OK");
             }
@@ -110,7 +112,7 @@ function EndPVacio() {
     $("#btnPararRotor").removeAttr("disabled");
     $("#btnPararRotor").removeClass("btn-disabled");
     $("#msjSpan").text('El rotor sera bloqueado por 12 segundos, tiempo restante: ');    
-    //$("#msjPRotor").append('<span id="seconds"></span>');
+
     $("#divBtnDescargar").hide();
     $("#msjPRotor").hide();
     $("#StopMotor").click();
@@ -211,13 +213,13 @@ function ManagementMotor(e) {
             processData: false,
             contentType: false,
             success: function (response) {
-
-                console.log("velocidad actualizada");
-                for (var i = 0; list.length; i++) {
-                    if (i.nombre != null || i.nombre != "") {
-                        $("#" + i.nombre + "Medida").text(i.medida);
-                    }
-                }
+                //console.log("response", response);
+                //console.log("velocidad actualizada");
+                //for (var i = 0; list.length; i++) {
+                //    if (i.nombre != null || i.nombre != "") {
+                //        $("#" + i.nombre + "Medida").text(i.medida);
+                //    }
+                //}
             }
         });
     }

@@ -11,8 +11,16 @@ function PostLogin(email, contrasenia, validation) {
     let data = new FormData();
     console.log("validation", validation);
     let objDatosLogin = mapDatosLogin(emailActual, contraseniaActual);
+
+
+    var fechaActual = new Date();
+    var forFecha = fechaActual.getFullYear() + "-" + ("0" + (fechaActual.getMonth() + 1)).slice(-2) + "-" + ("0" + fechaActual.getDate()).slice(-2) + "T" + ("0" + fechaActual.getHours()).slice(-2) + ":" + ("0" + fechaActual.getMinutes()).slice(-2) + ":" + ("00");
+
     data.append("data", JSON.stringify(objDatosLogin));
+    data.append("horaActual", JSON.stringify(forFecha));
+
     data.append("__RequestVerificationToken", JSON.stringify(validation))
+    let dateLogin = new Date();
     
     $.ajax({
         url: url,

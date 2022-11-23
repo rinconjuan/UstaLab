@@ -32,13 +32,17 @@ namespace UstaLab.Controllers
             MensajeError mensajeError = new MensajeError();
             RespuestaUsuarios respuestaLogin = new RespuestaUsuarios();
             DatosLogin datosLogin = new DatosLogin();
+            DateTime fechaActual = new DateTime();
             try
             {
                
                 foreach (var key in HttpContext.Request.Form.Keys)
                 {
                     if (key.Equals("data"))
-                        datosLogin = JsonConvert.DeserializeObject<DatosLogin>(HttpContext.Request.Form["data"]);                    
+                        datosLogin = JsonConvert.DeserializeObject<DatosLogin>(HttpContext.Request.Form["data"]);
+                    if (key.Equals("horaActual"))
+                        fechaActual = JsonConvert.DeserializeObject<DateTime>(HttpContext.Request.Form["horaActual"]);
+                    
                 }
                 var parametros = $"?email={datosLogin.email}&password={datosLogin.password}";
                 
@@ -50,7 +54,7 @@ namespace UstaLab.Controllers
                     respuestaLogin = JsonConvert.DeserializeObject<RespuestaUsuarios>(respuestaBody);
                     if (respuestaLogin.EstadoLogin)
                     {
-                        var paramAgenda = $"?FechaInicio={DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}&FechaFin={(DateTime.Now.AddMinutes(30)).ToString("yyyyy-MM-dd HH:mm:ss")}&IdUser={respuestaLogin.Usuario.idUser}&Modo=LOG";
+                        var paramAgenda = $"?FechaInicio={fechaActual.ToString("yyyy-MM-dd HH:mm:ss")}&FechaFin={(fechaActual.AddMinutes(30)).ToString("yyyyy-MM-dd HH:mm:ss")}&IdUser={respuestaLogin.Usuario.idUser}&Modo=LOG";
 
                         var respuestaAgenda = await client.GetAsync("GetAgenda" + paramAgenda).ConfigureAwait(false);
                         var resAgendaBody = await respuestaAgenda.Content.ReadAsStringAsync();
@@ -80,13 +84,13 @@ namespace UstaLab.Controllers
 
 
 
-                            return Json(new { respuestaLogin = respuestaLogin, respuestaAgenda = fechaFinSession, success = true });
+                            return Json(new { respuestaLogin = respuestaLogin, respuestaAgenda = fechaFinSession, paramAgenda = paramAgenda, success = true });
 
                         }
                         else
                         {
                             mensajeError.Mensaje = "Usted no esta agendado para esta franja horaria, intente mas tarde";
-                            return Json(new { respuestaLogin = mensajeError, success = false });
+                            return Json(new { respuestaLogin = mensajeError, paramAgenda = paramAgenda,  success = false });
                         }
                         
                     }
