@@ -1,5 +1,5 @@
 DataUser();
-    
+
 var BoolPVacio = false;
 var DATE_TARGET = new Date();
 const SPAN_SECONDS = document.querySelector('span#seconds');
@@ -25,7 +25,7 @@ $("#iniciarPvacio").click(function () {
     $("#closeModalPVacio").click();
     $("#divBlockRotor").hide();
     $("#divLoading").show();
-    $("#divControlG").show();   
+    $("#divControlG").show();
     $("#divCircutor").show();
     $("#btnPVacio").prop("disabled", "true");
     $("#btnPVacio").addClass("btn-disabled");
@@ -43,9 +43,9 @@ $("#iniciarPRotor").click(function () {
     GetImage();
 
     $("#divCircutor").show();
-    $("#divControlG").show();  
-    $("#divBlockRotor").show();  
-    
+    $("#divControlG").show();
+    $("#divBlockRotor").show();
+
     $("#divControlVariac").hide();
     $("#btnPVacio").removeAttr("disabled");
     $("#btnPVacio").removeClass("btn-disabled");
@@ -55,6 +55,10 @@ $("#iniciarPRotor").click(function () {
     $("#closeModalPRotor").click();
     $("#divLoading").show();
     $("#divCircutor").show();
+
+    $("#btnPararRotor").prop("disabled", "true");
+    $("#btnPararRotor").addClass("btn-disabled");
+
 
 });
 
@@ -67,13 +71,11 @@ function GetImage() {
             processData: false,
             contentType: false,
             success: function (response) {
-                console.log("response", response);
-                console.log("response.imagen", response.imagen);
                 $("#imgCircutor").attr('src', 'data:image/bmp;base64,' + response.imagen);
                 console.log("Get imagen OK");
             }
         });
-    }    
+    }
 }
 
 function PostAccion(e) {
@@ -111,12 +113,15 @@ function EndPVacio() {
     $("#btnPararRotor").prop("disabled", "false");
     $("#btnPararRotor").removeAttr("disabled");
     $("#btnPararRotor").removeClass("btn-disabled");
-    $("#msjSpan").text('El rotor sera bloqueado por 12 segundos, tiempo restante: ');    
+    $("#msjSpan").text('El rotor sera bloqueado por 8 segundos, tiempo restante: ');
 
     $("#divBtnDescargar").hide();
     $("#msjPRotor").hide();
     $("#StopMotor").click();
     $("#msjBlockRotor").hide();
+
+    $("#btnPararRotor").prop("disabled", "true");
+    $("#btnPararRotor").addClass("btn-disabled");
 
 }
 
@@ -141,7 +146,7 @@ function PararRotor() {
             console.log("date creada", dateNow);
             console.log("date const", DATE_TARGET);
             DATE_TARGET = dateNow;
-            updClock  = setInterval(updateCountdown, 1000);
+            updClock = setInterval(updateCountdown, 1000);
 
         }
     });
@@ -160,7 +165,7 @@ function updateCountdown() {
         SPAN_SECONDS.textContent = "";
         $("#msjPRotor").removeClass("alert-warning");
         $("#msjPRotor").addClass("alert-danger");
-        $("#msjSpan").text('Prueba Finalizada, pulse el boton de "Descargar Imagen" para obtener una imagen del circutor tomada al momento de hacer la prueba.');     
+        $("#msjSpan").text('Prueba Finalizada, pulse el boton de "Descargar Imagen" para obtener una imagen del circutor tomada al momento de hacer la prueba.');
         $("#divBtnDescargar").show();
         $("#StopMotor").click();
 
@@ -176,12 +181,14 @@ function ManagementMotor(e) {
     var idBtn = e.getAttribute("id");
     console.log("idBtn", idBtn);
     if (idBtn == "StopMotor") {
-        $("#"+ idBtn +"").prop("disabled", "true");
+        $("#" + idBtn + "").prop("disabled", "true");
         $("#" + idBtn + "").addClass("btn-disabled");
 
         $("#RunMotor").removeAttr("disabled");
         $("#RunMotor").removeClass("btn-disabled");
         $("#formControlRange").prop("disabled", "true");
+        $("#formControlRange").val(0);
+
 
         accionMotor = "Stop";
         estadoMotor = "Stop";
@@ -199,14 +206,32 @@ function ManagementMotor(e) {
         accionMotor = "Run";
         estadoMotor = "Run";
 
+        let urlvel = "PruebaVacio/PostVelocidad";
+        let data = new FormData();
+        data.append("velocidad", JSON.stringify(100.0))
+        $.ajax({
+            url: urlvel,
+            type: "POST",
+            data: data,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+
+                console.log("velocidad actualizada inicio");
+            }
+        });
+
     }
 
     if (accionMotor !== "") {
+
+
+
         let url = "PruebaVacio/ManagementVariador";
         let data = new FormData();
         data.append("accion", JSON.stringify(accionMotor))
         $.ajax({
-            
+
             url: url,
             type: "POST",
             data: data,
@@ -224,11 +249,23 @@ function ManagementMotor(e) {
         });
     }
 }
-$(document).on('input change', '#formControlRange', function () {
+
+var velocityGlobal = 0;
+
+//$(document).on('input change', '#formControlRange', function () {
+
+//});
+
+let i = document.getElementById('formControlRange');
+
+
+// use 'change' instead to see the difference in response
+i.addEventListener('change', function () {
     if (estadoMotor === "Run") {
         var velocidad = $("#formControlRange").val();
-        $("#lbVelo").text("Velocidad Actual: " + velocidad/10 + "Hz");
+        $("#lbVelo").text("Velocidad Actual: " + velocidad / 10 + "Hz");
         console.log("velocidad", velocidad);
+
 
         let url = "PruebaVacio/PostVelocidad";
         let data = new FormData();
@@ -240,13 +277,12 @@ $(document).on('input change', '#formControlRange', function () {
             processData: false,
             contentType: false,
             success: function (response) {
-                
-                console.log("velocidad actualizada");
+
+                console.log("velocidad actualizada range");
             }
         });
-    }   
-});
-
+    }
+}, false);
 
 function DescargarRegistro() {
     let url = "Fuente/GetImagen";
@@ -262,7 +298,7 @@ function DescargarRegistro() {
             a.setAttribute('src', 'data:image/bmp;base64,' + response);
             var json = JSON.stringify(response),
                 blob = new Blob([json], { type: "image/bmp" }),
-                url = window.URL.createObjectURL(blob); 
+                url = window.URL.createObjectURL(blob);
             a.href = 'data:image/bmp;base64,' + response;
             a.download = "Registro.bmp";
             a.click();
@@ -273,10 +309,10 @@ function DescargarRegistro() {
 }
 
 function IniciarGiro() {
-    let velocidad = 15.0;
+    let velocidad = 200.0;
     let url = "PruebaVacio/PostVelocidad";
     let data = new FormData();
-    let accionMotor = "Run" 
+    let accionMotor = "Run"
     data.append("velocidad", JSON.stringify(velocidad))
     $.ajax({
         url: url,
@@ -287,6 +323,11 @@ function IniciarGiro() {
         success: function (response) {
 
             $("#btnIniciarGiro").prop("disabled", "false");
+
+            $("#btnPararRotor").removeAttr("disabled");
+            $("#btnPararRotor").removeClass("btn-disabled");
+
+
             let url = "PruebaVacio/ManagementVariador";
             let data = new FormData();
             data.append("accion", JSON.stringify(accionMotor))
