@@ -13,7 +13,7 @@ namespace UstaLab.Controllers
     
     public class PruebaVacioController : Controller
     {
-        private string ApiWeb = "http://damian16-001-site1.htempurl.com/";
+        private string ApiWeb = "http://tesisfinal1628-001-site1.ftempurl.com";
         // GET: PruebaVacio
         
         [HttpPost]

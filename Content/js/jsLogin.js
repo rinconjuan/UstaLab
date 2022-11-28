@@ -116,7 +116,7 @@ function ConsultarAgenda() {
 
             } else {
                 console.log(response);
-                let error = response.respuestaLogin;
+                let error = response.respuestaLogin.Mensaje;
                 $("#errorEmail").text(error);
                 $("#errorEmail").show();
 

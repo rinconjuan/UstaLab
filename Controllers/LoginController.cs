@@ -16,7 +16,7 @@ namespace UstaLab.Controllers
 {
     public class LoginController : Controller
     {
-        private string ApiWeb = "http://damian16-001-site1.htempurl.com/";
+        private string ApiWeb = "http://tesisfinal1628-001-site1.ftempurl.com";
         private string NameUser = "";
         // GET: Login
         [AllowAnonymous]
