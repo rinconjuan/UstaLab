@@ -21,12 +21,12 @@ function PostLogin(email, contrasenia, validation) {
 
     data.append("__RequestVerificationToken", JSON.stringify(validation))
     let dateLogin = new Date();
-    
+
     $.ajax({
         url: url,
         type: "POST",
         data: data,
-        processData: false,  
+        processData: false,
         contentType: false,
         success: function (response) {
             console.log(response);
@@ -71,7 +71,7 @@ function ConsultarAgenda() {
     var fechaActual = new Date();
     var forFecha = fechaActual.getFullYear() + "-" + ("0" + (fechaActual.getMonth() + 1)).slice(-2) + "-" + ("0" + fechaActual.getDate()).slice(-2) + "T" + ("0" + fechaActual.getHours()).slice(-2) + ":" + ("0" + fechaActual.getMinutes()).slice(-2) + ":" + ("00");
 
-    $("#errorEmail").hide(); 
+    $("#errorEmail").hide();
     $("#errorEmail").text("");
     $("#sucessLogin").text("");
     $("#sucessLogin").hide();
@@ -93,7 +93,7 @@ function ConsultarAgenda() {
         $("#errorEmail").text("Fecha no permitida");
         return
     }
-         
+
 
     $.ajax({
         url: url,
@@ -101,7 +101,7 @@ function ConsultarAgenda() {
         data: data,
         processData: false,
         contentType: false,
-        success: function (response) {     
+        success: function (response) {
 
             if (response.success) {
                 console.log(response);
@@ -116,14 +116,14 @@ function ConsultarAgenda() {
 
             } else {
                 console.log(response);
-                let error = response.respuestaLogin;
+                let error = response.respuestaLogin.Mensaje;
                 $("#errorEmail").text(error);
                 $("#errorEmail").show();
 
-                
+
             }
         }
-    });    
+    });
 }
 
 function CrearUsuario() {
@@ -190,7 +190,7 @@ function CrearUsuario() {
                 $("#errorUsuario").show();
             }
         }
-    });    
+    });
 
 }
 
@@ -214,7 +214,7 @@ $("#btnCerrar").click(function () {
 
 $("#btnCloseGModal").click(function () {
     $("#emailUserNew").val("");
-    $("#passwordUser").val(""); 
+    $("#passwordUser").val("");
     $("#nombreUser").val("");
     $("#apellidoUser").val("");
 
@@ -247,14 +247,14 @@ $("#btnCancelUser").click(function () {
 
 $("#btnCancelAge").click(function () {
     $("#emailUser").val("");
-    
+
 
     $("#fechaAgenda").removeAttr("value");
     var dt = new Date();
     var Fromdatetime = dt.getFullYear() + "-" + ("0" + (dt.getMonth() + 1)).slice(-2) + "-" + ("0" + dt.getDate()).slice(-2) + "T" + ("0" + dt.getHours()).slice(-2) + ":" + ("0" + dt.getMinutes()).slice(-2) + ":" + ("00");
     $('#fechaAgenda').attr('value', Fromdatetime);
     $("#fechaAgenda").val(Fromdatetime);
-   
+
 
     $("#sucessAgenda").hide();
     $("#sucessAgenda").text('');
