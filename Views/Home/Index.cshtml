@@ -55,8 +55,8 @@
                             <hr style="margin-top: 0px;">
                             <h6 class="text-center"><b>Controles del variador de frecuencia</b></h6>
                             <label for="formControlRange"><i class="fa-solid fa-gear"></i> Frecuencia</label>
-                            <input type="range" value="0" min="0" max="600" step="10" class="form-control-range" id="formControlRange">
-                            <small style="float: left;">0 hz</small>
+                            <input type="range" value="10" min="100" max="600" step="10" class="form-control-range" id="formControlRange">
+                            <small style="float: left;">10 hz</small>
                             <small style="float: right;">60 hz</small>
                             <br />
                             <p id="lbVelo">Velocidad Actual: </p>
@@ -79,7 +79,7 @@
                         <div id="divBlockRotor" style="display: none;">
                             <hr style="margin-top: 0px;">
                             <h6 class="text-center"><b>Controles de rotor</b></h6>
-                            <p class="alert alert-warning" style="margin-top:15px; display:none" id="msjBlockRotor">La frecuencia con la que se iniciara esta prueba es de 20Hz.</p>
+                            <p class="alert alert-warning" style="margin-top:15px; display:none" id="msjBlockRotor">La frecuencia con la que se iniciara esta prueba es de 10Hz.</p>
                             <div class="text-center">
                                 <button id="btnIniciarGiro" href="#" class="btn btn-success btn-icon-split mr-5" onclick="IniciarGiro()">
                                     <span class="icon text-white">

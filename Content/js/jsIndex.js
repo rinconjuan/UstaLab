@@ -309,7 +309,7 @@ function DescargarRegistro() {
 }
 
 function IniciarGiro() {
-    let velocidad = 200.0;
+    let velocidad = 100.0;
     let url = "PruebaVacio/PostVelocidad";
     let data = new FormData();
     let accionMotor = "Run"
