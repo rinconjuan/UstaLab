@@ -1,4 +1,4 @@
-DataUser();
+
     
 var BoolPVacio = false;
 var DATE_TARGET = new Date();
@@ -10,7 +10,13 @@ var updClock;
 var estadoMotor = "Stop";
 setInterval(ValidateCookie, 1000);
 
+if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
+    $("#StopMotor").click();
+} 
 
+window.addEventListener('beforeunload', function (e) {
+    $("#StopMotor").click();
+});
 
 function ValidateCookie() {
     var match = document.cookie.match(new RegExp('(^| )' + "validatSesion" + '=([^;]+)'));
@@ -123,6 +129,7 @@ function EndPVacio() {
     $("#btnPararRotor").prop("disabled", "true");
     $("#btnPararRotor").addClass("btn-disabled");
 
+    $("#imgenRef").attr('src', "/Content/img/imgLive.jpg");
 }
 
 function PararRotor() {
@@ -142,6 +149,7 @@ function PararRotor() {
             $("#msjPRotor").addClass("alert-warning");
             $("#msjPRotor").show();
             var dateNow = new Date();
+            $("#imgenRef").attr('src', "/Content/img/motorgif2.gif");
             dateNow.setSeconds(dateNow.getSeconds() + 10);
             console.log("date creada", dateNow);
             console.log("date const", DATE_TARGET);
@@ -169,6 +177,8 @@ function updateCountdown() {
         $("#divBtnDescargar").show();
         $("#StopMotor").click();
 
+        $("#imgenRef").attr('src', "/Content/img/imgLive.jpg");
+
 
         $("#btnIniciarGiro").removeAttr("disabled");
         $("#btnIniciarGiro").removeClass("btn-disabled");
@@ -184,6 +194,8 @@ function ManagementMotor(e) {
         $("#"+ idBtn +"").prop("disabled", "true");
         $("#" + idBtn + "").addClass("btn-disabled");
 
+        $("#imgenRef").attr('src', "/Content/img/imgLive.jpg");
+
         $("#RunMotor").removeAttr("disabled");
         $("#RunMotor").removeClass("btn-disabled");
         $("#formControlRange").prop("disabled", "true");
@@ -196,6 +208,8 @@ function ManagementMotor(e) {
     if (idBtn == "RunMotor") {
         $("#" + idBtn + "").prop("disabled", "true");
         $("#" + idBtn + "").addClass("btn-disabled");
+
+        $("#imgenRef").attr('src', "/Content/img/motorgif.gif");
 
         $("#StopMotor").removeAttr("disabled");
         $("#StopMotor").removeClass("btn-disabled");
@@ -238,13 +252,7 @@ function ManagementMotor(e) {
             processData: false,
             contentType: false,
             success: function (response) {
-                //console.log("response", response);
-                //console.log("velocidad actualizada");
-                //for (var i = 0; list.length; i++) {
-                //    if (i.nombre != null || i.nombre != "") {
-                //        $("#" + i.nombre + "Medida").text(i.medida);
-                //    }
-                //}
+                
             }
         });
     }
@@ -252,14 +260,10 @@ function ManagementMotor(e) {
 
 var velocityGlobal = 0;
 
-//$(document).on('input change', '#formControlRange', function () {
-    
-//});
 
 let i = document.getElementById('formControlRange');
 
 
-// use 'change' instead to see the difference in response
 i.addEventListener('change', function () {
     if (estadoMotor === "Run") {
         var velocidad = $("#formControlRange").val();
@@ -309,6 +313,7 @@ function DescargarRegistro() {
 }
 
 function IniciarGiro() {
+    
     let velocidad = 200.0;
     let url = "PruebaVacio/PostVelocidad";
     let data = new FormData();
@@ -328,6 +333,7 @@ function IniciarGiro() {
             $("#btnPararRotor").removeClass("btn-disabled");
 
 
+
             let url = "PruebaVacio/ManagementVariador";
             let data = new FormData();
             data.append("accion", JSON.stringify(accionMotor))
@@ -339,7 +345,7 @@ function IniciarGiro() {
                 processData: false,
                 contentType: false,
                 success: function (response) {
-
+                    $("#imgenRef").attr('src', "/Content/img/motorgif.gif");
                     $("#msjBlockRotor").show();
                 }
             });
@@ -349,6 +355,3 @@ function IniciarGiro() {
 
 }
 
-function DataUser() {
-
-}

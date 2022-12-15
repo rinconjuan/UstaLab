@@ -12,7 +12,7 @@ namespace UstaLab.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        private string ApiWeb = "http://tesisfinal1628-001-site1.ftempurl.com";
+        private string ApiWeb = "http://apites-001-site1.atempurl.com";
 
 
         

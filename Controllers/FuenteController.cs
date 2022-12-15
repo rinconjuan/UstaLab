@@ -13,7 +13,7 @@ namespace UstaLab.Controllers
 {
     public class FuenteController : Controller
     {
-        private string ApiWeb = "http://tesisfinal1628-001-site1.ftempurl.com";
+        private string ApiWeb = "http://apites-001-site1.atempurl.com";
         [HttpPost]
         public async Task<ActionResult> PararRotor( )
         {

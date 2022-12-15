@@ -159,6 +159,8 @@
     <Content Include="Content\img\imgCircu.jpg" />
     <Content Include="Content\img\imgLive.jpg" />
     <Content Include="Content\img\loginImg.png" />
+    <Content Include="Content\img\motorgif.gif" />
+    <Content Include="Content\img\motorgif2.gif" />
     <Content Include="Content\img\undraw_posting_photo.svg" />
     <Content Include="Content\img\undraw_profile.svg" />
     <Content Include="Content\img\undraw_profile_1.svg" />

@@ -255,7 +255,7 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                  aria-labelledby="userDropdown">                                
-                                <a class="dropdown-item" href="@Url.Action("LogOut", "Login")" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="@Url.Action("LogOut", "Login")">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Cerrar Sesion
                                 </a>
@@ -301,30 +301,7 @@
 <script>
     var cc = @Html.Raw(Json.Encode(ViewBag.MSG));
     $("#nameUser").text((cc != null ? cc : ""));
-
-    //$(function () {
-    //    setTimeout(doStuff, 1000);
-    //});
-    //function doStuff() {
-    //    $.ajax("/Login/CheckLogin").done(function (data) {
-    //        if (data <= 60) {
-    //            startLogout(data);
-    //        } else {
-    //            setTimeout(doStuff, 1000);
-    //        }
-    //    });
-    //}
-
-    //function startLogout(seconds) {
-    //    var countdown = setInterval(function () {
-    //        //Show something here
-    //        if (countdown == 0) {
-    //            clearInterval(countdown);
-    //            console.log("FIN SESION");
-    //        }
-    //        seconds--;
-    //    }, 1000);
-    //}
+    
 </script>
 </body>
 
